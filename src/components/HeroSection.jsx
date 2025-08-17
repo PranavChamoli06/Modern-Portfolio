@@ -8,6 +8,16 @@ export const HeroSection = () => {
     >
       <div className="container max-w-4xl mx-auto text-center z-10">
         <div className="space-y-6">
+
+           {/* Profile Image */}
+          <div className="flex justify-center">
+            <img
+              src="/profile.jpg"   // <-- place your photo in public/me.png
+              alt="Pranav Chamoli"
+              className="w-40 h-40 rounded-full border-4 border-primary shadow-lg mb-6"
+            />
+          </div>
+
           {/* Name */}
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             <span className="opacity-0 animate-fade-in">Hi, I'm</span>
@@ -32,7 +42,7 @@ export const HeroSection = () => {
               View My Work
             </a>
             <a
-              href="/PranavChamoli_Resume.pdf"
+              href="/PranavChamoli_Resume.pdf"   // <-- place your resume in public/resume.pdf
               download
               className="cosmic-button"
             >
