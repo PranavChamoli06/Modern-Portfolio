@@ -14,8 +14,6 @@
 
 In this tutorial, you'll learn how to build a modern portfolio website using **React**, **TailwindCSS**, **Vite**, and **Lucide Icons**. From dark mode support to responsive animations and deployable project showcases, this video walks you through every step—perfect for developers looking to level up their frontend skills or apply for jobs.
 
-🎥 Watch the full tutorial: [YouTube](https://youtu.be/YOUR_VIDEO_ID)
-
 ---
 
 ## ⚙️ Tech Stack
@@ -30,31 +28,16 @@ In this tutorial, you'll learn how to build a modern portfolio website using **R
 
 ---
 
-## ⚡️ Features
+## 🚀 Features
 
-* 🌑 **Light/Dark Mode Toggle**
-  Save theme preference in local storage with beautiful transitions
-
-* 💫 **Animated Backgrounds**
-  Stars, meteors, scroll effects, and glowing UI elements
-
-* 📱 **Responsive Navigation**
-  Desktop and mobile menus with glassmorphism
-
-* 👨‍💻 **Hero & About Sections**
-  Showcase who you are with smooth intro animations and buttons
-
-* 📊 **Skills Grid**
-  Filterable progress bars and categories with animated width
-
-* 🖼️ **Projects Showcase**
-  Display screenshots, tech stacks, and GitHub/demo links
-
-* 📩 **Contact Section**
-  Social icons + responsive contact form with toast notifications
-
-* 🚀 **One-Click Deployment**
-  Easily host your site with Vercel and GitHub
+- ⚡ **Fast & Modern Stack** – React + Vite + TailwindCSS
+- 🌙 **Dark Mode Only** – Starry animated background for an aesthetic experience
+- 💼 **Projects Showcase** – With categories, modal view, GitHub/Demo links
+- 👨‍💻 **About & Skills Section** – Highlight technical expertise in bubbles
+- 📬 **Contact Information** – Email, phone, and location in a glassmorphic box
+- 🔗 **Social Links** – GitHub & LinkedIn integrated in the hero section
+- 📄 **Download Resume** – One-click access to PDF resume
+- 🎨 **Animations** – Smooth hover and transition effects
 
 ---
 
@@ -99,7 +82,3 @@ Your live website will be hosted on a custom subdomain (e.g. `https://your-name.
 * [Radix UI](https://www.radix-ui.com/)
 * [Vite](https://vitejs.dev/)
 * [Vercel](https://vercel.com/)
-
----
-
-Let me know if you'd like me to generate a version with your actual GitHub repo, YouTube URL, or a banner image suggestion!
