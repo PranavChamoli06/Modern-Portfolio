@@ -4,15 +4,15 @@ import { ArrowRight, ExternalLink, Github, X } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Hotel Reservation System",
+    title: "Hotel Reservation and Management System",
     category: "java-core",
-    shortDesc: "Console-based",
+    shortDesc: "Full Stack",
     description:
-      "Developed a console-based system using JAVA, MySQL, and JDBC.",
-    image: "/projects/project1.jpeg",
+      " A complete JavaFX + MySQL hotel booking platform with role-based access, reporting, and full CRUD functionality.",
+    image: "/projects/project1.png",
     tags: ["Java", "MySQL", "IntelliJ IDE"],
-    techStack: ["Java", "JDBC", "MySQL"],
-    githubUrl: "https://github.com/PranavChamoli06/HOTEL-RESERVATION-SYSTEM",
+    techStack: ["Java", "JDBC", "MySQL", "CSS3", "FXML", "Maven"],
+    githubUrl: "https://github.com/PranavChamoli06/Hotel-Reservation-and-Management-System",
     demoUrl: null,
   },
   {
