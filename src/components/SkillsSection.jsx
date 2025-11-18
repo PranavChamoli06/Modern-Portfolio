@@ -1,13 +1,13 @@
 export const SkillsSection = () => {
   const mySkills = [
     { name: "Java", level: 85 },
-    { name: "Spring Boot", level: 50 },
+    { name: "Spring Boot", level: 80 },
     { name: "Python", level: 90 },
-    { name: "Java Swing (Desktop GUI)", level: 85 },
+    { name: "Javafx (GUI)", level: 85 },
     { name: "JDBC (Database Connectivity)", level: 80 },
     { name: "HTML/CSS", level: 95 },
     { name: "JavaScript", level: 90 },
-    { name: "Tailwind CSS", level: 90 },
+    { name: "BootStrap", level: 90 },
     { name: "Machine Larning (scikit-learn)", level: 75},
     // { name: "Rest API's", level: 50},
   ];
