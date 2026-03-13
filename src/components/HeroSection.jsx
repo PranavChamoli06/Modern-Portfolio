@@ -12,7 +12,7 @@ export const HeroSection = () => {
            {/* Profile Image */}
           <div className="flex justify-center">
             <img
-              src="/profile.jpg"   // <-- place your photo in public/me.png
+              src="/profile.png"   // <-- place your photo in public/me.png
               alt="Pranav Chamoli"
               className="w-40 h-40 rounded-full border-4 border-primary shadow-lg mb-6"
             />
