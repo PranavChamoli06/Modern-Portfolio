@@ -8,11 +8,12 @@ const projects = [
     category: "java-core",
     shortDesc: "Full Stack",
     description:
-      " A complete JavaFX + MySQL hotel booking platform with role-based access, reporting, and full CRUD functionality.",
+      "A complete JavaFX + MySQL hotel booking platform with role-based access, reporting, and full CRUD functionality.",
     image: "/projects/project1.png",
     tags: ["Java", "MySQL", "IntelliJ IDE"],
     techStack: ["Java", "JDBC", "MySQL", "CSS3", "FXML", "Maven"],
-    githubUrl: "https://github.com/PranavChamoli06/Hotel-Reservation-and-Management-System",
+    githubUrl:
+      "https://github.com/PranavChamoli06/Hotel-Reservation-and-Management-System",
     demoUrl: null,
   },
   {
@@ -25,7 +26,8 @@ const projects = [
     image: "/projects/project2.jpeg",
     tags: ["Python", "OpenCV", "Mediapipe"],
     techStack: ["Python", "OpenCV", "Mediapipe"],
-    githubUrl: "https://github.com/PranavChamoli06/Real-Time-Face-Recognition",
+    githubUrl:
+      "https://github.com/PranavChamoli06/Real-Time-Face-Recognition",
     demoUrl: null,
   },
   {
@@ -50,8 +52,9 @@ const projects = [
       "A visually interactive web-based tool to create, preview, and download custom color palettes.",
     image: "/projects/project4.jpg",
     tags: ["Html", "Css", "Javascript"],
-    techStack: ["Html","Css","Javascript"],
-    githubUrl: "https://github.com/PranavChamoli06/color-palette-site",
+    techStack: ["Html", "Css", "Javascript"],
+    githubUrl:
+      "https://github.com/PranavChamoli06/color-palette-site",
     demoUrl: "https://dynamic-rounded-palette-generator.netlify.app/",
   },
   {
@@ -64,25 +67,13 @@ const projects = [
     image: "/projects/project5.jpeg",
     tags: ["Python"],
     techStack: ["Python", "OpenCV", "Mediapipe"],
-    githubUrl: "https://github.com/PranavChamoli06/VOLUME-HAND-TRACKING",
+    githubUrl:
+      "https://github.com/PranavChamoli06/VOLUME-HAND-TRACKING",
     demoUrl: null,
   },
-  /*{
-    id: 6,
-    title: "Quiz Application",
-    category: "java-core",
-    shortDesc: "Desktop GUI",
-    description:
-      "A Java Swing and AWT-based quiz application with interactive GUI.",
-    image: "/projects/project3.png",
-    tags: ["Java"],
-    techStack: ["Java", "Swing", "AWT"],
-    githubUrl: "https://github.com/PranavChamoli06/QUIZ-APPLICATION",
-    demoUrl: null,
-  }, */
 ];
 
-const categories = ["all", "java-core", "python","frontend"];
+const categories = ["all", "java-core", "python", "frontend"];
 
 export const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -95,10 +86,71 @@ export const ProjectsSection = () => {
 
   return (
     <section id="projects" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Featured <span className="text-primary">Projects</span>
+      <div className="container mx-auto max-w-6xl">
+
+        {/* Section Title */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+          My <span className="text-primary">Projects</span>
         </h2>
+
+        {/* CURRENTLY BUILDING */}
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-lg mb-20 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(139,92,246,0.25)]">
+          <div className="grid md:grid-cols-2 gap-6 items-center">
+
+            <div className="p-6">
+              <img
+                src="/projects/hrms.png"
+                alt="HRMS Backend"
+                className="w-full rounded-lg object-cover shadow-lg transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+
+            <div className="p-8">
+
+              <p className="text-sm text-primary font-medium mb-2">
+                Currently Building
+              </p>
+
+              <h3 className="text-2xl font-bold mb-3">
+                HRMS
+              </h3>
+
+              <span className="px-3 py-1 text-xs bg-yellow-500/20 text-yellow-400 rounded-full mb-4 inline-block">
+                Work in Progress
+              </span>
+
+              <p className="text-muted-foreground mb-4">
+                A Complete Full Stack based Hotel Reservation Management System
+                with authentication, employee management, role-based access
+                control, and REST APIs for enterprise HR operations.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {["Java", "Spring Boot", "MySQL", "JWT", "REST API", "React"].map(
+                  (tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  )
+                )}
+              </div>
+
+              <div className="flex gap-4">
+                <a
+                  href="https://github.com/PranavChamoli06/HRMS-Backend"
+                  target="_blank"
+                  className="cosmic-button flex items-center gap-2"
+                >
+                  View Code <Github size={16} />
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -117,14 +169,13 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* PROJECT GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              className="group bg-card rounded-lg overflow-hidden shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(139,92,246,0.25)]"
             >
-              {/* Clicking image or title will open modal */}
               <div
                 className="h-48 overflow-hidden cursor-pointer"
                 onClick={() => setActiveProject(project)}
@@ -132,7 +183,7 @@ export const ProjectsSection = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               </div>
 
@@ -141,7 +192,7 @@ export const ProjectsSection = () => {
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground"
+                      className="px-2 py-1 text-xs border rounded-full bg-secondary text-secondary-foreground"
                     >
                       {tag}
                     </span>
@@ -149,31 +200,30 @@ export const ProjectsSection = () => {
                 </div>
 
                 <h3
-                  className="text-xl font-semibold mb-1 cursor-pointer"
+                  className="text-xl font-semibold mb-1 cursor-pointer transition-colors group-hover:text-primary"
                   onClick={() => setActiveProject(project)}
                 >
                   {project.title}
                 </h3>
+
                 <p className="text-muted-foreground text-sm mb-4">
                   {project.shortDesc}
                 </p>
 
-                {/* Direct Action Buttons */}
                 <div className="flex gap-3">
                   <a
                     href={project.githubUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
                     className="cosmic-button flex items-center gap-2 text-sm"
                   >
                     Code <Github size={14} />
                   </a>
+
                   {project.demoUrl && (
                     <a
                       href={project.demoUrl}
                       target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-md flex items-center gap-2 transition-colors bg-gray-300 text-gray-800 hover:bg-gray-400 text-sm"
+                      className="px-4 py-2 rounded-md flex items-center gap-2 bg-gray-300 text-gray-800 hover:bg-gray-400 text-sm"
                     >
                       Demo <ExternalLink size={14} />
                     </a>
@@ -184,85 +234,8 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* Expanded Project Modal */}
-        {activeProject && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-card rounded-lg max-w-4xl w-full p-6 relative overflow-hidden">
-              <button
-                onClick={() => setActiveProject(null)}
-                className="absolute top-4 right-4 text-muted-foreground hover:text-primary"
-              >
-                <X size={20} />
-              </button>
-
-              {/* Modal Image */}
-              <div className="h-48 w-full overflow-hidden rounded-md mb-4">
-                <img
-                  src={activeProject.image}
-                  alt={activeProject.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Details Section */}
-              <div className="text-left space-y-4">
-                {/* Title + Category */}
-                <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-bold">{activeProject.title}</h3>
-                  <span className="cosmic-button text-sm font-medium capitalize">
-                    {activeProject.category}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="text-muted-foreground">
-                  {activeProject.description}
-                </p>
-
-                {/* Tech Stack */}
-                <h4 className="font-semibold">Technologies Used:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {activeProject.techStack.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Buttons */}
-                <div className="flex gap-3 pt-2">
-                  <a
-                    href={activeProject.githubUrl}
-                    target="_blank"
-                    className="cosmic-button flex items-center gap-2"
-                  >
-                    View Code <Github size={16} />
-                  </a>
-                  <a
-                    href={activeProject.demoUrl || "#"}
-                    target="_blank"
-                    className={`px-4 py-2 rounded-md flex items-center gap-2 transition-colors ${
-                      activeProject.demoUrl
-                        ? "bg-gray-300 text-gray-800 hover:bg-gray-400"
-                        : "bg-gray-200 text-gray-500 cursor-not-allowed"
-                    }`}
-                    onClick={(e) => {
-                      if (!activeProject.demoUrl) e.preventDefault();
-                    }}
-                  >
-                    Live Demo <ExternalLink size={16} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Github Button */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <a
             className="cosmic-button w-fit flex items-center mx-auto gap-2"
             target="_blank"
@@ -271,6 +244,7 @@ export const ProjectsSection = () => {
             Check My Github <ArrowRight size={16} />
           </a>
         </div>
+
       </div>
     </section>
   );
