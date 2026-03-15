@@ -140,7 +140,7 @@ export const ProjectsSection = () => {
 
               <div className="flex gap-4">
                 <a
-                  href="https://github.com/PranavChamoli06/HRMS-Backend"
+                  href="https://github.com/PranavChamoli06/Full-Stack-HRMS"
                   target="_blank"
                   className="cosmic-button flex items-center gap-2"
                 >
