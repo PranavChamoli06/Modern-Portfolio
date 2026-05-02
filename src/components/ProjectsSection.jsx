@@ -126,25 +126,6 @@ export const ProjectsSection = () => {
                  A full-stack Hotel Management System designed to digitize reservation workflows and streamline operations.
                  Built using a scalable REST architecture with optimized performance, achieving faster load times and efficient data handling.
               </p>
-
-              {/* IMPACT */}
-              <div className="mb-6">
-                <p className="text-sm font-semibold text-primary mb-2">Key Impact</p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• 60% reduction in manual booking operations</li>
-                      <li>• 35% faster frontend load performance</li>
-                      <li>• API response time optimized to &lt;200ms</li>
-                      <li>• 40% improvement in database query efficiency</li>
-                  </ul>
-              </div>
-
-            {/* DEPLOYMENT */}
-            <div className="mb-6">
-                <p className="text-sm font-semibold text-primary mb-2">Deployment</p>
-                <p className="text-sm text-muted-foreground">
-                    Frontend (Vercel) • Backend (Render) • Database (Railway)
-                </p>
-            </div>
             
               {/* TECH STACK */}
               <div className="flex flex-wrap gap-2 mb-6">
