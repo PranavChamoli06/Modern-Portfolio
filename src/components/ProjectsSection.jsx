@@ -45,20 +45,6 @@ const projects = [
   },
   {
     id: 4,
-    title: "Dynamic Rounded Palette Generator",
-    category: "frontend",
-    shortDesc: "WebTool",
-    description:
-      "A visually interactive web-based tool to create, preview, and download custom color palettes.",
-    image: "/projects/project4.jpg",
-    tags: ["Html", "Css", "Javascript"],
-    techStack: ["Html", "Css", "Javascript"],
-    githubUrl:
-      "https://github.com/PranavChamoli06/color-palette-site",
-    demoUrl: "https://dynamic-rounded-palette-generator.netlify.app/",
-  },
-  {
-    id: 5,
     title: "Volume Hand Tracking",
     category: "python",
     shortDesc: "Interactive Computer Vision",
