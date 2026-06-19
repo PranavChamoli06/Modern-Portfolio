@@ -4,16 +4,13 @@ import { ArrowRight, ExternalLink, Github, X } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Hotel Reservation and Management System",
-    category: "java-core",
-    shortDesc: "Full Stack",
-    description:
-      "A complete JavaFX + MySQL hotel booking platform with role-based access, reporting, and full CRUD functionality.",
-    image: "/projects/project1.png",
-    tags: ["Java", "MySQL", "IntelliJ IDE"],
-    techStack: ["Java", "JDBC", "MySQL", "CSS3", "FXML", "Maven"],
+    title: "Hinglish Compiler",
+    category: "python",
+    shortDesc: "Custom Language Compiler",
+    image: "/projects/hinglish-compiler.png",
+    tags: ["Python", "Tkinter", "Graphviz"],
     githubUrl:
-      "https://github.com/PranavChamoli06/Hotel-Reservation-and-Management-System",
+      "https://github.com/PranavChamoli06/Hinglish-Compiler",
     demoUrl: null,
   },
   {
@@ -21,11 +18,8 @@ const projects = [
     title: "Real-Time Face Recognition",
     category: "python",
     shortDesc: "Real-time Computer Vision",
-    description:
-      "A Python-based real-time face recognition system using CNN and Mediapipe.",
-    image: "/projects/project2.jpeg",
+    image: "/projects/face-recognition.jpeg",
     tags: ["Python", "OpenCV", "Mediapipe"],
-    techStack: ["Python", "OpenCV", "Mediapipe"],
     githubUrl:
       "https://github.com/PranavChamoli06/Real-Time-Face-Recognition",
     demoUrl: null,
@@ -35,9 +29,7 @@ const projects = [
     title: "Quiz Application",
     category: "java-core",
     shortDesc: "Desktop GUI",
-    description:
-      "A Java Swing and AWT-based quiz application with interactive GUI.",
-    image: "/projects/project3.png",
+    image: "/projects/quiz-application.png",
     tags: ["Java"],
     techStack: ["Java", "Swing", "AWT"],
     githubUrl: "https://github.com/PranavChamoli06/QUIZ-APPLICATION",
@@ -45,21 +37,17 @@ const projects = [
   },
   {
     id: 4,
-    title: "Volume Hand Tracking",
-    category: "python",
-    shortDesc: "Interactive Computer Vision",
-    description:
-      "This project demonstrates hand tracking capabilities using OpenCV and MediaPipe in Python.",
-    image: "/projects/project5.jpeg",
-    tags: ["Python"],
-    techStack: ["Python", "OpenCV", "Mediapipe"],
-    githubUrl:
-      "https://github.com/PranavChamoli06/VOLUME-HAND-TRACKING",
-    demoUrl: null,
+    title: "Expense Tracker",
+    category: "full-stack",
+    shortDesc: "Personal Finance Management",
+    image: "/projects/expense-tracker.png",
+    tags: ["JavaScript", "Node.js", "React.js", "Express.js", "CSS3"],
+    githubUrl: "https://github.com/PranavChamoli06/expense-tracker",
+    demoUrl: "https://expense-tracker-omega-indol-39.vercel.app/",
   },
 ];
 
-const categories = ["all", "java-core", "python", "frontend"];
+const categories = ["all", "java-core", "python", "full-stack"];
 
 export const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
