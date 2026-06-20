@@ -4,8 +4,28 @@ import { ArrowRight, ExternalLink, Github, X } from "lucide-react";
 const projects = [
   {
     id: 1,
+    title: "HRMS",
+    category: ["java-core", "full-stack"],
+    shortDesc: "Hotel Reservation Management System",
+    image: "/projects/hrms.png",
+    tags: ["Java", "Spring Boot", "MySQL", "JWT", "REST API", "React"],
+    githubUrl: "https://github.com/PranavChamoli06/Full-Stack-HRMS",
+    demoUrl: null,
+  },
+  {
+    id: 2,
+    title: "Expense Tracker",
+    category: ["full-stack"],
+    shortDesc: "Personal Finance Management",
+    image: "/projects/expense-tracker.png",
+    tags: ["JavaScript", "Node.js", "React.js", "Express.js", "CSS3"],
+    githubUrl: "https://github.com/PranavChamoli06/expense-tracker",
+    demoUrl: "https://expense-tracker-omega-indol-39.vercel.app/",
+  },
+  {
+    id: 3,
     title: "Hinglish Compiler",
-    category: "python",
+    category: ["python"],
     shortDesc: "Custom Language Compiler",
     image: "/projects/hinglish-compiler.png",
     tags: ["Python", "Tkinter", "Graphviz"],
@@ -14,9 +34,9 @@ const projects = [
     demoUrl: null,
   },
   {
-    id: 2,
+    id: 4,
     title: "Real-Time Face Recognition",
-    category: "python",
+    category: ["python"],
     shortDesc: "Real-time Computer Vision",
     image: "/projects/face-recognition.jpeg",
     tags: ["Python", "OpenCV", "Mediapipe"],
@@ -25,25 +45,15 @@ const projects = [
     demoUrl: null,
   },
   {
-    id: 3,
+    id: 5,
     title: "Quiz Application",
-    category: "java-core",
+    category: ["java-core"],
     shortDesc: "Desktop GUI",
     image: "/projects/quiz-application.png",
     tags: ["Java"],
     techStack: ["Java", "Swing", "AWT"],
     githubUrl: "https://github.com/PranavChamoli06/QUIZ-APPLICATION",
     demoUrl: null,
-  },
-  {
-    id: 4,
-    title: "Expense Tracker",
-    category: "full-stack",
-    shortDesc: "Personal Finance Management",
-    image: "/projects/expense-tracker.png",
-    tags: ["JavaScript", "Node.js", "React.js", "Express.js", "CSS3"],
-    githubUrl: "https://github.com/PranavChamoli06/expense-tracker",
-    demoUrl: "https://expense-tracker-omega-indol-39.vercel.app/",
   },
 ];
 
@@ -56,7 +66,9 @@ export const ProjectsSection = () => {
   const filteredProjects =
     activeCategory === "all"
       ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      : projects.filter((project) =>
+          project.category.includes(activeCategory)
+        );
 
   return (
     <section id="projects" className="py-24 px-4 relative">
@@ -66,69 +78,6 @@ export const ProjectsSection = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           My <span className="text-primary">Projects</span>
         </h2>
-
-        {/* CURRENTLY BUILDING */}
-        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-lg mb-20 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(139,92,246,0.25)]">
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-
-            <div className="p-6">
-              <img
-                src="/projects/hrms.png"
-                alt="HRMS Backend"
-                className="w-full rounded-lg object-cover shadow-lg transition-transform duration-500 hover:scale-105"
-              />
-            </div>
-
-            {/* CONTENT */}
-            <div className="p-8">
-
-              <p className="text-sm text-primary font-medium mb-2">
-                 Featured Project
-              </p>
-
-            {/* PROJECT TITLE */}
-              <h3 className="text-2xl font-bold mb-3">
-                Full Stack Hotel Management System (HRMS)
-              </h3>
-
-            {/* STATUS */}
-              <span className="px-3 py-1 text-xs bg-yellow-500/20 text-yellow-400 rounded-full mb-4 inline-block">
-                 Active Development | Production Ready Modules
-              </span>
-
-              <p className="text-muted-foreground mb-4">
-                 A full-stack Hotel Management System designed to digitize reservation workflows and streamline operations.
-                 Built using a scalable REST architecture with optimized performance, achieving faster load times and efficient data handling.
-              </p>
-            
-              {/* TECH STACK */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                  {["Java", "Spring Boot", "MySQL", "JWT", "REST API", "React"].map(
-                    (tech, i) => (
-                      <span
-                          key={i}
-                          className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
-                      >
-                          {tech}
-                      </span>
-                    ) 
-                  )}
-              </div>
-
-              {/* BUTTONS */}
-              <div className="flex gap-4 flex-wrap">
-                  <a
-                      href="https://github.com/PranavChamoli06/Full-Stack-HRMS"
-                      target="_blank"
-                      className="cosmic-button flex items-center gap-2"
-                  >
-                      View Code <Github size={16} />
-                  </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -147,7 +96,7 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* PROJECT GRID */}
+        {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div
@@ -192,6 +141,7 @@ export const ProjectsSection = () => {
                   <a
                     href={project.githubUrl}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="cosmic-button flex items-center gap-2 text-sm"
                   >
                     Code <Github size={14} />
@@ -201,6 +151,7 @@ export const ProjectsSection = () => {
                     <a
                       href={project.demoUrl}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="px-4 py-2 rounded-md flex items-center gap-2 bg-gray-300 text-gray-800 hover:bg-gray-400 text-sm"
                     >
                       Demo <ExternalLink size={14} />
@@ -212,17 +163,17 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* Github Button */}
+        {/* GitHub Button */}
         <div className="text-center mt-16">
           <a
             className="cosmic-button w-fit flex items-center mx-auto gap-2"
             target="_blank"
+            rel="noopener noreferrer"
             href="https://github.com/PranavChamoli06"
           >
             Check My Github <ArrowRight size={16} />
           </a>
         </div>
-
       </div>
     </section>
   );

@@ -17,11 +17,8 @@ export const SkillsSection = () => {
     "MySQL Workbench",
     "VS Code",
     "IntelliJ IDEA",
-    "Tkinter",
     "Command-Line Tools",
-    "MySQL",
-    "Java",
-    "Python"
+    "Postman"
   ];
 
   const renderSkillCard = (skill, key) => (
