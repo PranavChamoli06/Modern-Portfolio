@@ -3,7 +3,7 @@ import { Briefcase, Calendar } from "lucide-react";
 const experiences = [
   {
     company: "Panacea Infosec Private Limited",
-    role: "Intern – Auditing & Consulting",
+    role: "Intern – Consulting",
     duration: "Jan 2026 – May 2026",
     description:
       " Gained exposure to cybersecurity consulting, compliance processes, and audit-related workflows. Observed and understood project-based consulting practices in a professional corporate environment",
@@ -11,7 +11,6 @@ const experiences = [
                 "ISO Compliance",
                 "Audit Documentation",
                 "Risk Assessment",
-                "Business Consulting"
             ],
   },
 ];
