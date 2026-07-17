@@ -19,7 +19,7 @@ export const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="py-24 px-4 relative z-10"
+      className="py-24 px-4 relative"
     >
       <div className="container mx-auto max-w-5xl">
 

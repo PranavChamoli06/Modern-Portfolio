@@ -8,7 +8,7 @@ export const SkillsSection = () => {
     { name: "HTML/CSS", level: 95 },
     { name: "JavaScript", level: 90 },
     { name: "BootStrap", level: 90 },
-    { name: "Machine Larning (scikit-learn)", level: 75},
+    { name: "Rest API's", level: 75},
     // { name: "Rest API's", level: 50},
   ];
 
