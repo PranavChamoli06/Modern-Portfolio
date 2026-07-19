@@ -24,43 +24,56 @@
     100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-10px);
     }
   }
+
   @keyframes pulse-subtle {
     0%,
     100% {
       opacity: 1;
     }
+
     50% {
       opacity: 0.8;
     }
   }
+
   @keyframes fade-in {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
+
   @keyframes meteor {
     0% {
       transform: rotate(215deg) translateX(0);
       opacity: 1;
     }
+
     70% {
       opacity: 1;
     }
+
     100% {
       transform: rotate(215deg) translateX(-500px);
       opacity: 0;
     }
   }
 }
+
+
+/* =========================================
+   BASE THEME
+========================================= */
 
 @layer base {
   :root {
@@ -97,9 +110,17 @@
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
-    font-feature-settings: "rlig" 1, "calt" 1;
+
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 }
+
+
+/* =========================================
+   CONTAINER
+========================================= */
 
 @utility container {
   margin-inline: auto;
@@ -108,126 +129,403 @@
   @media (width >= 640px) {
     max-width: 640px;
   }
+
   @media (width >= 768px) {
     max-width: 768px;
   }
+
   @media (width >= 1024px) {
     max-width: 1024px;
   }
+
   @media (width >= 1280px) {
     max-width: 1280px;
   }
+
   @media (width >= 1400px) {
     max-width: 1400px;
   }
 }
 
+
+/* =========================================
+   CUSTOM UTILITIES
+========================================= */
+
 @utility text-glow {
   @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+
+  text-shadow:
+    0 0 10px rgba(167, 139, 250, 0.5);
 }
 
+
 @utility card-hover {
-  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
+  @apply transition-transform duration-300
+         hover:scale-[1.02]
+         hover:shadow-lg;
 }
+
 
 @utility gradient-border {
   @apply relative rounded-md;
-  background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
+
+  background:
+    linear-gradient(
+      to right,
+      hsl(var(--card)),
+      hsl(var(--card))
+    );
+
   background-clip: padding-box;
+
   border: 1px solid transparent;
 }
 
+
 @utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105 active:scale-95;
+  @apply px-6
+         py-2
+         rounded-full
+         bg-primary
+         text-primary-foreground
+         font-medium
+         transition-all
+         duration-300
+         hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
+         hover:scale-105
+         active:scale-95;
 }
+
 
 @utility star {
   @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+
+  box-shadow:
+    0 0 10px 2px rgba(255, 255, 255, 0.4);
 }
 
+
 @utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+  @apply absolute
+         bg-linear-to-r
+         from-white
+         via-white
+         to-transparent
+         rounded-full;
+
+  box-shadow:
+    0 0 10px 5px rgba(255, 255, 255, 0.3);
 }
+
+
+/* =========================================
+   ROOT
+========================================= */
 
 #root {
   max-width: 100%;
+
   margin: 0 auto;
   padding: 0;
+
   text-align: center;
 }
 
-/* Custom Cursor - Desktop only */
-@media (pointer: fine) {
-  html,
-  body,
-  a,
-  button,
-  input,
-  textarea,
-  select,
-  [role="button"] {
-    cursor: none !important;
+
+/* =========================================
+   CUSTOM BLEND CURSOR
+========================================= */
+
+.cursor-main {
+  --size: 0px;
+
+  position: fixed;
+
+  /*
+   * Keeps the center of the circle aligned
+   * with the actual mouse coordinates.
+   */
+  top: calc(var(--size) / -2);
+  left: calc(var(--size) / -2);
+
+  width: var(--size);
+  height: var(--size);
+
+  border-radius: 50%;
+
+  /*
+   * Cursor must never block buttons,
+   * links, or other interactions.
+   */
+  pointer-events: none;
+
+  /*
+   * Keep cursor above portfolio content.
+   */
+  z-index: 999999;
+
+  /*
+   * Lavender cursor color.
+   */
+  background-color: #e6c3ff;
+
+  /*
+   * Purple outer glow.
+   */
+  box-shadow:
+    0 0 12px rgba(175, 131, 255, 0.75),
+    0 0 25px rgba(175, 131, 255, 0.45),
+    0 0 40px rgba(175, 131, 255, 0.2);
+
+  /*
+   * Key effect:
+   *
+   * The cursor blends with whatever pixels
+   * are underneath it. This creates the
+   * localized text/background illumination.
+   */
+  mix-blend-mode: difference;
+
+  /*
+   * GSAP controls translate movement.
+   * CSS handles size/morph transitions.
+   */
+  transition:
+    top 0.3s ease-out,
+    left 0.3s ease-out,
+    width 0.3s ease-out,
+    height 0.3s ease-out,
+    border-radius 0.3s ease-out;
+
+  will-change:
+    transform,
+    width,
+    height;
+}
+
+
+/* =========================================
+   CURSOR — ICON CONTAINER MODE
+========================================= */
+
+.cursor-main.cursor-icons {
+  top: 10px;
+  left: 10px;
+
+  height: calc(var(--cursorH) - 20px);
+
+  transition:
+    all 0.5s ease-out,
+    height 0.5s ease-in-out;
+}
+
+
+/* =========================================
+   CURSOR — DISABLED MODE
+========================================= */
+
+.cursor-main.cursor-disable {
+  --size: 0px;
+}
+
+
+/* =========================================
+   CURSOR — DESKTOP
+========================================= */
+
+@media only screen and (min-width: 600px) and (pointer: fine) {
+  .cursor-main {
+    --size: 50px;
   }
 
-  .custom-cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 6px;
-    height: 6px;
-
-    background: hsl(var(--primary));
-    border-radius: 50%;
-
-    pointer-events: none;
-    z-index: 99999;
-
-    will-change: transform;
-  }
-
-  .custom-cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 32px;
-    height: 32px;
-
-    border: 1.5px solid hsl(var(--primary));
-    border-radius: 50%;
-
-    pointer-events: none;
-    z-index: 99998;
-
-    opacity: 0.8;
-
-    transition:
-      width 0.2s ease,
-      height 0.2s ease,
-      background-color 0.2s ease,
-      opacity 0.2s ease;
-
-    will-change: transform;
-  }
-
-  .custom-cursor-ring.custom-cursor-hover {
-    width: 48px;
-    height: 48px;
-
-    background: hsl(var(--primary) / 0.12);
-    opacity: 1;
+  .cursor-main.cursor-disable {
+    --size: 0px;
   }
 }
 
+
+/* =========================================
+   CURSOR — TOUCH DEVICES
+========================================= */
+
 @media (pointer: coarse) {
-  .custom-cursor-dot,
-  .custom-cursor-ring {
+  .cursor-main {
     display: none;
+  }
+}
+
+
+/* =========================================
+   PORTFOLIO OPENING REVEAL
+========================================= */
+
+.portfolio-content {
+  opacity: 0;
+
+  transition:
+    opacity 0.5s ease;
+}
+
+
+.portfolio-content.portfolio-visible {
+  opacity: 1;
+}
+
+
+/* =========================================
+   PORTFOLIO REVEAL — ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-content {
+    transform: none;
+
+    transition:
+      opacity 0.2s ease;
+  }
+}
+
+
+/* =========================================
+   HERO STAGGERED ENTRANCE
+========================================= */
+
+.hero-reveal {
+  opacity: 0;
+
+  transform:
+    translateY(35px);
+
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+
+  will-change:
+    opacity,
+    transform;
+}
+
+
+.hero-reveal.hero-visible {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+
+/* =========================================
+   HERO — STAGGER TIMING
+========================================= */
+
+/* 1 — Profile */
+
+.hero-profile {
+  transform:
+    translateY(-25px)
+    scale(0.92);
+
+  transition-delay:
+    0.15s;
+}
+
+
+.hero-profile.hero-visible {
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+/* 2 — Name */
+
+.hero-name {
+  transition-delay:
+    0.35s;
+}
+
+
+/* 3 — Typing tagline */
+
+.hero-tagline {
+  transition-delay:
+    0.55s;
+}
+
+
+/* 4 — CTA buttons */
+
+.hero-buttons {
+  transition-delay:
+    0.75s;
+}
+
+
+/* 5 — Social links */
+
+.hero-socials {
+  transition-delay:
+    0.95s;
+}
+
+
+/* 6 — Scroll indicator */
+
+.hero-scroll {
+  transition-delay:
+    1.15s;
+}
+
+
+/* =========================================
+   PROFILE IMAGE ENTRANCE DETAIL
+========================================= */
+
+.hero-profile img {
+  transform:
+    scale(0.95);
+
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+
+.hero-profile.hero-visible img {
+  transform:
+    scale(1);
+}
+
+
+.hero-profile.hero-visible img:hover {
+  transform:
+    scale(1.04);
+}
+
+
+/* =========================================
+   GLOBAL MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal,
+  .hero-profile,
+  .hero-profile img {
+    opacity: 1;
+
+    transform: none;
+
+    filter: none;
+
+    transition: none;
+  }
+
+  /*
+   * Remove cursor movement interpolation
+   * transitions for reduced-motion users.
+   */
+  .cursor-main {
+    transition: none;
   }
 }

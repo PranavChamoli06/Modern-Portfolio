@@ -1,107 +1,195 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export const CustomCursor = () => {
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
-
-  const mouse = useRef({ x: -100, y: -100 });
-  const ring = useRef({ x: -100, y: -100 });
-
-  const [isHovering, setIsHovering] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const cursorRef = useRef(null);
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+
+    if (!cursor) return;
+
     const isTouchDevice =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      window.matchMedia("(pointer: coarse)").matches;
+      window.matchMedia("(pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) return;
 
-    let animationId;
+    let hover = false;
+    let animationFrameId;
+
+    const mousePos = {
+      x: -100,
+      y: -100,
+    };
+
+    const cursorPos = {
+      x: -100,
+      y: -100,
+    };
+
+    /* -----------------------------
+       Track mouse position
+    ----------------------------- */
 
     const handleMouseMove = (e) => {
-      mouse.current.x = e.clientX;
-      mouse.current.y = e.clientY;
-
-      setIsVisible(true);
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `
-          translate3d(${e.clientX}px, ${e.clientY}px, 0)
-          translate(-50%, -50%)
-        `;
-      }
+      mousePos.x = e.clientX;
+      mousePos.y = e.clientY;
     };
 
-    const handleMouseOver = (e) => {
-      const interactive = e.target.closest(
-        "a, button, input, textarea, select, [role='button'], [data-cursor-hover]"
+    document.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
+
+    /* -----------------------------
+       Smooth cursor movement
+    ----------------------------- */
+
+    const animateCursor = () => {
+      if (!hover) {
+        const delay = 6;
+
+        cursorPos.x +=
+          (mousePos.x - cursorPos.x) / delay;
+
+        cursorPos.y +=
+          (mousePos.y - cursorPos.y) / delay;
+
+        gsap.set(cursor, {
+          x: cursorPos.x,
+          y: cursorPos.y,
+        });
+      }
+
+      animationFrameId =
+        requestAnimationFrame(animateCursor);
+    };
+
+    animationFrameId =
+      requestAnimationFrame(animateCursor);
+
+    /* -----------------------------
+       data-cursor interactions
+    ----------------------------- */
+
+    const cursorElements =
+      document.querySelectorAll("[data-cursor]");
+
+    const listeners = [];
+
+    cursorElements.forEach((element) => {
+      const handleMouseOver = (e) => {
+        const target = e.currentTarget;
+
+        const rect =
+          target.getBoundingClientRect();
+
+        /*
+         * Cursor adapts to icon/social containers
+         */
+        if (element.dataset.cursor === "icons") {
+          cursor.classList.add("cursor-icons");
+
+          cursor.style.setProperty(
+            "--cursorH",
+            `${rect.height}px`
+          );
+
+          gsap.to(cursor, {
+            x: rect.left,
+            y: rect.top,
+            duration: 0.25,
+            ease: "power2.out",
+          });
+
+          hover = true;
+        }
+
+        /*
+         * Hide cursor effect
+         */
+        if (
+          element.dataset.cursor === "disable"
+        ) {
+          cursor.classList.add(
+            "cursor-disable"
+          );
+        }
+      };
+
+      const handleMouseOut = () => {
+        cursor.classList.remove(
+          "cursor-disable",
+          "cursor-icons"
+        );
+
+        /*
+         * Synchronize cursor position before
+         * returning control to animation loop.
+         */
+        cursorPos.x = mousePos.x;
+        cursorPos.y = mousePos.y;
+
+        hover = false;
+      };
+
+      element.addEventListener(
+        "mouseover",
+        handleMouseOver
       );
 
-      setIsHovering(Boolean(interactive));
-    };
+      element.addEventListener(
+        "mouseout",
+        handleMouseOut
+      );
 
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
+      listeners.push({
+        element,
+        handleMouseOver,
+        handleMouseOut,
+      });
+    });
 
-    const handleMouseEnter = () => {
-      setIsVisible(true);
-    };
-
-    const animateRing = () => {
-      const speed = 0.15;
-
-      ring.current.x += (mouse.current.x - ring.current.x) * speed;
-      ring.current.y += (mouse.current.y - ring.current.y) * speed;
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `
-          translate3d(${ring.current.x}px, ${ring.current.y}px, 0)
-          translate(-50%, -50%)
-        `;
-      }
-
-      animationId = requestAnimationFrame(animateRing);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
-
-    animationId = requestAnimationFrame(animateRing);
+    /* -----------------------------
+       Cleanup
+    ----------------------------- */
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener(
+        "mousemove",
+        handleMouseMove
+      );
 
-      cancelAnimationFrame(animationId);
+      cancelAnimationFrame(animationFrameId);
+
+      listeners.forEach(
+        ({
+          element,
+          handleMouseOver,
+          handleMouseOut,
+        }) => {
+          element.removeEventListener(
+            "mouseover",
+            handleMouseOver
+          );
+
+          element.removeEventListener(
+            "mouseout",
+            handleMouseOut
+          );
+        }
+      );
+
+      gsap.killTweensOf(cursor);
     };
   }, []);
 
   return (
-    <>
-      <div
-        ref={dotRef}
-        className="custom-cursor-dot"
-        style={{
-          opacity: isVisible ? 1 : 0,
-        }}
-      />
-
-      <div
-        ref={ringRef}
-        className={`custom-cursor-ring ${
-          isHovering ? "custom-cursor-hover" : ""
-        }`}
-        style={{
-          opacity: isVisible ? undefined : 0,
-        }}
-      />
-    </>
+    <div
+      ref={cursorRef}
+      className="cursor-main"
+      aria-hidden="true"
+    />
   );
 };

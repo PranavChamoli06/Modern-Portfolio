@@ -1,0 +1,747 @@
+/* =========================================
+   OPENING LOADING SCREEN
+========================================= */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+
+  background-color: #eae5ec;
+
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.loading-header {
+  position: fixed;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: min(92%, 1400px);
+
+  padding: 25px 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  z-index: 1000000;
+
+  color: #0a0a0a;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.loader-title {
+  color: inherit;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  text-decoration: none;
+}
+
+.loading-header.loader-out {
+  opacity: 0;
+
+  transform:
+    translateX(-50%)
+    translateY(-20px);
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   CENTRAL LOADER
+========================================= */
+
+.loading-wrap {
+  --Lsize: 175px;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+
+  position: relative;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 6px;
+
+  border-radius: 9999px;
+
+  background-color: #000;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.2);
+
+  transition:
+    min-width 0.8s cubic-bezier(0.33, 0.11, 1, 0.72),
+    min-height 0.8s cubic-bezier(0.33, 0.11, 1, 0.72),
+    border-radius 0.8s ease,
+    box-shadow 0.8s ease;
+
+  transition-delay: 0.2s;
+
+  z-index: 20;
+}
+
+
+/* =========================================
+   EXPANDING EXIT ANIMATION
+========================================= */
+
+.loading-wrap.loading-clicked {
+  min-width: calc(100vw + 5000px);
+  min-height: calc(100vh + 1000px);
+
+  border-radius: 9999px;
+
+  box-shadow: none;
+
+  transition-delay: 0s;
+}
+
+
+/* =========================================
+   MOUSE GLOW
+========================================= */
+
+.loading-hover {
+  position: absolute;
+
+  top: var(--mouse-y);
+  left: var(--mouse-x);
+
+  width: 250px;
+  height: 120px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background-color: #a87cff;
+
+  filter: blur(35px);
+
+  opacity: 0;
+
+  transition: opacity 0.4s ease;
+
+  pointer-events: none;
+}
+
+.loading-wrap:hover .loading-hover {
+  opacity: 1;
+}
+
+.loading-clicked .loading-hover,
+.loading-clicked:hover .loading-hover {
+  opacity: 0;
+}
+
+
+/* =========================================
+   LOADING BUTTON
+========================================= */
+
+.loading-button {
+  position: relative;
+
+  padding: 20px 50px;
+
+  min-width: 235px;
+
+  border-radius: 9999px;
+
+  background-color: #000;
+
+  overflow: hidden;
+
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  letter-spacing: 1px;
+
+  z-index: 10;
+}
+
+
+/* Mouse glow inside button */
+
+.loading-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: var(--mouse-y);
+  left: var(--mouse-x);
+
+  width: 80px;
+  height: 80px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background-color: rgba(255, 255, 255, 0.8);
+
+  filter: blur(60px);
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+
+  pointer-events: none;
+}
+
+.loading-button:hover::before {
+  opacity: 1;
+}
+
+.loading-clicked .loading-button::before {
+  opacity: 0;
+}
+
+
+/* =========================================
+   LOADING TEXT
+========================================= */
+
+.loading-container {
+  position: absolute;
+
+  width: 100%;
+  max-width: var(--Lsize);
+
+  top: 50%;
+  left: 50px;
+
+  transform: translateY(-50%);
+
+  z-index: 10;
+
+  transition: max-width 1s ease;
+}
+
+.loading-content {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  background-color: #000;
+
+  text-transform: uppercase;
+
+  transition: 0.6s ease;
+}
+
+.loading-content-in {
+  position: relative;
+  width: var(--Lsize);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.loading-content span {
+  position: static;
+  transform: none;
+
+  flex-shrink: 0;
+
+  font-weight: 300;
+  opacity: 0.7;
+}
+
+
+/* =========================================
+   BLINKING CURSOR
+========================================= */
+
+.loading-box {
+  position: absolute;
+
+  right: 0;
+
+  top: 50%;
+
+  transform:
+    translate(100%, -50%);
+
+  width: 12px;
+  height: 25px;
+
+  background-color: #fff;
+
+  animation: loaderBlink 1s linear infinite;
+}
+
+@keyframes loaderBlink {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================
+   WELCOME TEXT
+========================================= */
+
+.loading-content2 {
+  position: relative;
+
+  width: var(--Lsize);
+  max-width: var(--Lsize);
+
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+
+  overflow: hidden;
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.8s ease;
+}
+
+
+/* Hide Loading text */
+
+.loading-complete .loading-container {
+  max-width: 0;
+}
+
+
+/* Hide blinking cursor */
+
+.loading-complete .loading-box {
+  animation: blinkDone 0.3s forwards;
+
+  animation-delay: 0.8s;
+}
+
+@keyframes blinkDone {
+
+  to {
+    opacity: 0;
+  }
+}
+
+
+/* Welcome exits */
+
+.loading-clicked .loading-content2 {
+  overflow: visible;
+
+  opacity: 0;
+}
+
+.loading-clicked .loading-content2 span {
+  transform: translateY(100px);
+
+  opacity: 0;
+
+  transition:
+    transform 0.8s ease,
+    opacity 0.5s ease;
+}
+
+
+/* =========================================
+   MARQUEE
+========================================= */
+
+.loading-marquee {
+  position: absolute;
+
+  top: 50%;
+  left: 0;
+
+  width: 100%;
+
+  transform: translateY(-50%);
+
+  color: #121212;
+
+  font-size: clamp(42px, 7vw, 100px);
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.loading-marquee span {
+  position: relative;
+
+  padding: 0 55px;
+}
+
+.loading-marquee span::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 0;
+
+  width: 18px;
+  height: 18px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background-color: #121212;
+}
+
+
+/* =========================================
+   MINI HEADER GAME
+========================================= */
+
+.loaderGame {
+  width: 80px;
+  height: 45px;
+
+  overflow: hidden;
+
+  transition: opacity 0.3s ease;
+}
+
+.loaderGame-container {
+  position: relative;
+
+  width: 200px;
+  height: 100px;
+
+  overflow: hidden;
+
+  transform: scale(0.4);
+
+  transform-origin: top left;
+}
+
+.loaderGame-in {
+  position: absolute;
+
+  left: 0;
+
+  width: 1200px;
+
+  overflow: hidden;
+
+  animation: loaderGameMove 7s linear infinite;
+}
+
+@keyframes loaderGameMove {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-300px);
+  }
+}
+
+.loaderGame-line {
+  float: left;
+
+  width: 10px;
+  height: 60px;
+
+  margin: 0 20px 40px;
+
+  background-color: #000;
+}
+
+.loaderGame-line:nth-child(even) {
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+
+/* =========================================
+   MOVING BALL
+========================================= */
+
+.loaderGame-ball {
+  position: absolute;
+
+  left: 20%;
+  top: 0;
+
+  width: 15px;
+  height: 15px;
+
+  border-radius: 50%;
+
+  background-color: #a87cff;
+
+  animation: loaderBall 7s infinite
+    cubic-bezier(0.3, 1.18, 0.63, 1.28);
+}
+
+@keyframes loaderBall {
+
+  0% {
+    transform: translateY(70px);
+  }
+
+  15% {
+    transform: translateY(10px);
+  }
+
+  30% {
+    transform: translateY(70px);
+  }
+
+  45% {
+    transform: translateY(10px);
+  }
+
+  67% {
+    transform: translateY(70px);
+  }
+
+  80% {
+    transform: translateY(10px);
+  }
+
+  90%,
+  100% {
+    transform: translateY(70px);
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (min-width: 500px) {
+
+  .loader-title {
+    font-size: 20px;
+  }
+}
+
+
+@media (min-width: 1200px) {
+
+  .loading-header {
+    padding: 35px 0;
+  }
+
+  .loader-title {
+    font-size: 22px;
+  }
+}
+
+
+@media (min-width: 1400px) {
+
+  .loading-wrap {
+    --Lsize: 230px;
+  }
+
+  .loading-button {
+    min-width: 350px;
+
+    padding: 30px 70px;
+
+    font-size: 25px;
+  }
+
+  .loading-container {
+    left: 70px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .loading-header {
+    width: 88%;
+
+    padding-top: 20px;
+  }
+
+  .loaderGame {
+    transform: scale(0.85);
+
+    transform-origin: top right;
+  }
+
+  .loading-marquee {
+    font-size: 42px;
+  }
+
+  .loading-marquee span {
+    padding: 0 35px;
+  }
+
+  .loading-marquee span::before {
+    width: 12px;
+    height: 12px;
+  }
+
+  .loading-button {
+    min-width: 235px;
+
+    padding: 18px 45px;
+
+    font-size: 16px;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .loaderGame-in,
+  .loaderGame-ball,
+  .loading-box {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}
+
+/* =========================================
+   CINEMATIC LOADER EXIT
+========================================= */
+
+/*
+ * Once WELCOME finishes, the black loader expands.
+ * The loading screen itself then wipes upward,
+ * exposing the portfolio underneath.
+ */
+
+.loading-screen {
+  transform: translateY(0);
+
+  transition:
+    transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+
+  will-change: transform;
+}
+
+
+/* Start the screen wipe after the black expansion */
+
+.loading-screen.loading-screen-exit {
+  animation: loaderScreenReveal 1.15s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+
+  animation-delay: 0.65s;
+}
+
+
+@keyframes loaderScreenReveal {
+
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+
+/* Keep the expanding black circle above the loader background */
+
+.loading-screen-exit .loading-wrap {
+  z-index: 30;
+}
+
+
+/* Fade marquee before the wipe */
+
+.loading-screen-exit .loading-marquee {
+  opacity: 0;
+
+  transition: opacity 0.35s ease;
+}
+
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .loading-screen.loading-screen-exit {
+    animation: loaderSimpleExit 0.2s ease forwards;
+    animation-delay: 0s;
+  }
+
+  @keyframes loaderSimpleExit {
+
+    to {
+      opacity: 0;
+    }
+  }
+}
