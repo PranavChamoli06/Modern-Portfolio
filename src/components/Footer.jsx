@@ -61,8 +61,6 @@ export const Footer = () => {
             <Github size={18} />
           </a>
 
-          <div className="h-6 w-px bg-border" />
-
           <a
             href="#hero"
             className={`${buttonClass} h-10 w-10`}
