@@ -12,7 +12,7 @@ const projects = [
     id: 1,
     title: "Hotel Reservation Management System",
     category: ["java-core", "full-stack"],
-    shortDesc: "Hotel Reservation Management System",
+    shortDesc: "A full-stack hotel reservation management system",
     image: "/projects/hrms.png",
     tags: [
       "Java",
