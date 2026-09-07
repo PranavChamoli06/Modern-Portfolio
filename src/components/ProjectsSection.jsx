@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const projects = [
   {
     id: 1,
-    title: "HRMS",
+    title: "Hotel Reservation Management System",
     category: ["java-core", "full-stack"],
     shortDesc: "Hotel Reservation Management System",
     image: "/projects/hrms.png",
