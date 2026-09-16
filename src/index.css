@@ -104,16 +104,34 @@
     @apply border-border;
   }
 
+  /*
+   * Smooth scrolling + hidden browser scrollbar.
+   * Scrolling itself remains fully enabled.
+   */
   html {
     @apply scroll-smooth;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
   }
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -530,7 +548,15 @@
   }
 }
 
-/* Hide scrollbars while keeping scrolling functional */
+
+/* =========================================
+   HIDE SCROLLBARS
+========================================= */
+
+/*
+ * Used for internal scrollable elements,
+ * such as the project details modal.
+ */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
