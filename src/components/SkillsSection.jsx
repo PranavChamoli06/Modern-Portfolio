@@ -9,6 +9,8 @@ export const SkillsSection = () => {
     { name: "JavaScript", level: 90 },
     { name: "BootStrap", level: 90 },
     { name: "Rest API's", level: 75},
+    {name: "Manual Testing", level: 80},
+    {name: "SDLC", level: 80},
     // { name: "Rest API's", level: 50},
   ];
 
