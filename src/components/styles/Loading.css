@@ -691,12 +691,13 @@
 
 
 /* Start the screen wipe after the black expansion */
+
 .loading-screen.loading-screen-exit {
-  animation: loaderScreenReveal 0.9s
+  animation: loaderScreenReveal 1.15s
     cubic-bezier(0.76, 0, 0.24, 1)
     forwards;
 
-  animation-delay: 0s;
+  animation-delay: 0.65s;
 }
 
 
@@ -742,159 +743,5 @@
     to {
       opacity: 0;
     }
-  }
-}
-
-/* =========================================
-   SAKUGA FLOATING LOADER — FINAL OVERRIDE
-========================================= */
-
-/* Keep the original light background */
-.loading-screen {
-  background-color: #eae5ec;
-  overflow: hidden;
-}
-
-/* Remove the old black capsule */
-.loading-wrap.loading-sakuga-wrap {
-  position: relative;
-
-  width: min(560px, calc(100vw - 40px));
-  min-width: 0;
-  min-height: 260px;
-
-  padding: 0;
-  margin: auto;
-
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-
-  overflow: visible;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: none;
-  transition-delay: 0s;
-}
-
-/* Remove old hover glow */
-.loading-sakuga-wrap .loading-hover {
-  display: none;
-}
-
-/* Sakuga progress bar */
-.loading-sakuga-progress {
-  --sk-progress-width: min(460px, calc(100vw - 64px));
-
-  position: relative;
-  z-index: 2;
-
-  display: block;
-  width: 100%;
-  max-width: 460px;
-
-  margin: 0 auto;
-}
-
-/* Keep the completion message above the animation */
-.loading-sakuga-wrap .loading-content2 {
-  position: absolute;
-  z-index: 3;
-
-  left: 50%;
-  top: 50%;
-
-  width: auto;
-  max-width: none;
-
-  margin: 0;
-  white-space: nowrap;
-
-  transform: translate(-50%, 20px);
-  opacity: 0;
-  visibility: hidden;
-
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease,
-    visibility 0.5s ease;
-}
-
-.loading-sakuga-wrap .loading-content2.loading-welcome-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, 0);
-}
-
-/* =========================================
-   CINEMATIC EXIT REVEAL
-========================================= */
-
-/* A separate black circle replaces the old capsule expansion */
-.loading-wrap.loading-sakuga-wrap::before {
-  content: "";
-
-  position: fixed;
-  left: 50%;
-  top: 50%;
-
-  width: 0;
-  height: 0;
-
-  border-radius: 50%;
-  background: #080710;
-
-  transform: translate(-50%, -50%);
-
-  z-index: 1;
-  pointer-events: none;
-
-  transition:
-    width 0.9s cubic-bezier(0.76, 0, 0.24, 1),
-    height 0.9s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-/* Expand the circle when loading completes */
-.loading-wrap.loading-sakuga-wrap.loading-clicked::before {
-  width: 220vmax;
-  height: 220vmax;
-}
-
-/* Keep the progress animation visible during the exit */
-.loading-wrap.loading-sakuga-wrap.loading-clicked {
-  min-width: 0;
-  min-height: 260px;
-  background: transparent;
-  box-shadow: none;
-  overflow: visible;
-}
-
-/* Remove obsolete marquee effects */
-.loading-screen .loading-marquee {
-  display: none;
-}
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 600px) {
-  .loading-wrap.loading-sakuga-wrap {
-    width: calc(100vw - 32px);
-    min-height: 210px;
-  }
-
-  .loading-sakuga-progress {
-    --sk-progress-width: calc(100vw - 64px);
-    max-width: 100%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loading-wrap.loading-sakuga-wrap::before {
-    transition-duration: 0.2s;
   }
 }
