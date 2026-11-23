@@ -1,28 +1,47 @@
-import { useEffect, useState } from "react";
-import Marquee from "react-fast-marquee";
+import { useEffect, useRef, useState } from "react";
 import "./styles/Loading.css";
 
 export const Loading = ({ percent, onComplete }) => {
   const [loaded, setLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  // When loading reaches 100%, change Loading -> Welcome
+  const progressRef = useRef(null);
+
+  // Connect React progress to the Sakuga custom element.
+  useEffect(() => {
+    let cancelled = false;
+
+    customElements.whenDefined("sakuga-progress").then(() => {
+      if (cancelled || !progressRef.current) return;
+
+      const value = Math.min(
+        Math.max(Number(percent) || 0, 0),
+        100
+      );
+
+      progressRef.current.set(value / 100);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [percent]);
+
+  // Preserve the existing welcome and exit sequence.
   useEffect(() => {
     if (percent < 100) return;
 
     const welcomeTimer = setTimeout(() => {
       setLoaded(true);
-    }, 600);
+    }, 300);
 
     const exitTimer = setTimeout(() => {
-    // Expand the black loader until it covers the viewport.
       setClicked(true);
-    }, 1600);
+    }, 900);
 
     const completeTimer = setTimeout(() => {
-      // Tell Home that the Hero can begin its entrance animation.
       onComplete?.();
-    }, 2450);
+    }, 1850);
 
     return () => {
       clearTimeout(welcomeTimer);
@@ -35,15 +54,20 @@ export const Loading = ({ percent, onComplete }) => {
     const target = e.currentTarget;
     const rect = target.getBoundingClientRect();
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    target.style.setProperty(
+      "--mouse-x",
+      `${e.clientX - rect.left}px`
+    );
 
-    target.style.setProperty("--mouse-x", `${x}px`);
-    target.style.setProperty("--mouse-y", `${y}px`);
+    target.style.setProperty(
+      "--mouse-y",
+      `${e.clientY - rect.top}px`
+    );
   };
 
   return (
     <>
+      {/* Existing portfolio header */}
       <div className={`loading-header ${clicked ? "loader-out" : ""}`}>
         <a href="#hero" className="loader-title">
           pranav.dev
@@ -62,40 +86,34 @@ export const Loading = ({ percent, onComplete }) => {
         </div>
       </div>
 
-      <div className={`loading-screen ${ clicked ? "loading-screen-exit" : ""}`}>
-        <div className="loading-marquee">
-          <Marquee speed={70} autoFill>
-            <span>Software Developer</span>
-            <span>Creative Coder</span>
-          </Marquee>
-        </div>
-
+      {/* Main loading screen */}
+      <div
+        className={`loading-screen ${
+          clicked ? "loading-screen-exit" : ""
+        }`}
+      >
         <div
-          className={`loading-wrap ${
+          className={`loading-wrap loading-sakuga-wrap ${
             clicked ? "loading-clicked" : ""
           }`}
           onMouseMove={handleMouseMove}
         >
           <div className="loading-hover" />
 
+          {/* Sakuga animated progress */}
+          <sakuga-progress
+            ref={progressRef}
+            class="loading-sakuga-progress"
+            label="Loading portfolio"
+          />
+          
+          {/* Completion message */}
           <div
-            className={`loading-button ${
-              loaded ? "loading-complete" : ""
+            className={`loading-content2 ${
+              loaded ? "loading-welcome-visible" : ""
             }`}
           >
-            <div className="loading-container">
-              <div className="loading-content">
-                <div className="loading-content-in">
-                  Loading <span>{Math.min(percent, 100)}%</span>
-                </div>
-              </div>
-
-              <div className="loading-box" />
-            </div>
-
-            <div className="loading-content2">
-              <span>Welcome</span>
-            </div>
+            <span>Welcome</span>
           </div>
         </div>
       </div>
@@ -103,8 +121,7 @@ export const Loading = ({ percent, onComplete }) => {
   );
 };
 
-// Simulated loading progress.
-// We'll connect this to the application in the next step.
+// Existing simulated loading progress system.
 export const setProgress = (setLoading) => {
   let percent = 0;
   let interval;

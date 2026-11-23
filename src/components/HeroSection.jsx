@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { TypeAnimation } from "react-type-animation";
