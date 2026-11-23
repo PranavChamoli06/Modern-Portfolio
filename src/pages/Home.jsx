@@ -5,7 +5,6 @@ import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
 import { SkillsSection } from "../components/SkillsSection";
-import CertificationsSection from "../components/CertificationsSection";
 import { ExperienceSection } from "../components/ExperienceSection";
 import { ProjectsSection } from "../components/ProjectsSection";
 import { ContactSection } from "../components/ContactSection";
@@ -107,7 +106,6 @@ export const Home = () => {
           <HeroSection isVisible={!showLoader} />
           <AboutSection />
           <SkillsSection />
-          <CertificationsSection />
           <ExperienceSection />
           <ProjectsSection />
           <ContactSection />
