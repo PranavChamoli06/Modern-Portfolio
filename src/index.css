@@ -5,6 +5,10 @@
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 
+  --color-muted: hsl(var(--muted));
+  --color-subtle: hsl(var(--subtle));
+  --color-secondary: hsl(var(--secondary));
+
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
 
@@ -71,45 +75,63 @@
 }
 
 
+
 /* =========================================
-   BASE THEME
+   APPLE MINIMAL LIGHT — BASE THEME
+========================================= */
+
+
+/* =========================================
+   APPLE PRO DARK — BASE THEME
+========================================= */
+
+/* =========================================
+   APPLE PRO DARK — BASE THEME
 ========================================= */
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 0 0% 0%;
+    --foreground: 240 9% 96%;
 
-    --card: 0 0% 100%;
+    --card: 240 3% 11%;
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 100% 44.5%;
+    --primary-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
+    --border: 240 3% 20%;
+
+    --muted: 240 3% 11%;
+    --subtle: 240 2% 60%;
+
+    --secondary: 210 100% 40%;
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    --background: 0 0% 0%;
+    --foreground: 240 9% 96%;
 
-    --card: 222 47% 8%;
+    --card: 240 3% 11%;
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --primary: 210 100% 44.5%;
+    --primary-foreground: 0 0% 100%;
 
-    --border: 217 33% 20%;
+    --border: 240 3% 20%;
+
+    --muted: 240 3% 11%;
+    --subtle: 240 2% 60%;
+
+    --secondary: 210 100% 40%;
   }
 
   * {
     @apply border-border;
   }
 
-  /*
-   * Smooth scrolling + hidden browser scrollbar.
-   * Scrolling itself remains fully enabled.
-   */
   html {
     @apply scroll-smooth;
+
+    color-scheme: dark;
 
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -122,19 +144,40 @@
   body {
     @apply bg-background text-foreground transition-colors duration-300;
 
+    background-color: #000000;
+    color: #f5f5f7;
+
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "SF Pro Text",
+      "SF Pro Display",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+
+    font-feature-settings: "rlig" 1, "calt" 1;
+
     scrollbar-width: none;
     -ms-overflow-style: none;
-
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
   }
 
   body::-webkit-scrollbar {
     display: none;
   }
-}
 
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ::selection {
+    background: #0071e3;
+    color: #ffffff;
+  }
+}
 
 /* =========================================
    CONTAINER
@@ -202,17 +245,22 @@
 
 
 @utility cosmic-button {
-  @apply px-6
-         py-2
+  @apply inline-flex items-center justify-center
+         px-6 py-3
          rounded-full
          bg-primary
          text-primary-foreground
          font-medium
-         transition-all
-         duration-300
-         hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105
-         active:scale-95;
+         transition-all duration-300
+         hover:bg-[#0066CC]
+         hover:scale-[1.03]
+         active:scale-[0.98];
+
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: 0 0 24px rgba(0, 113, 227, 0.2);
+  }
 }
 
 
@@ -255,15 +303,11 @@
    CUSTOM BLEND CURSOR
 ========================================= */
 
+
 .cursor-main {
   --size: 0px;
 
   position: fixed;
-
-  /*
-   * Keeps the center of the circle aligned
-   * with the actual mouse coordinates.
-   */
   top: calc(var(--size) / -2);
   left: calc(var(--size) / -2);
 
@@ -271,44 +315,16 @@
   height: var(--size);
 
   border-radius: 50%;
-
-  /*
-   * Cursor must never block buttons,
-   * links, or other interactions.
-   */
   pointer-events: none;
-
-  /*
-   * Keep cursor above portfolio content.
-   */
   z-index: 999999;
 
-  /*
-   * Lavender cursor color.
-   */
-  background-color: #e6c3ff;
+  background: rgba(0, 113, 227, 0.08);
+  border: 1px solid rgba(0, 113, 227, 0.35);
 
-  /*
-   * Purple outer glow.
-   */
-  box-shadow:
-    0 0 12px rgba(175, 131, 255, 0.75),
-    0 0 25px rgba(175, 131, 255, 0.45),
-    0 0 40px rgba(175, 131, 255, 0.2);
+  box-shadow: 0 0 12px rgba(0, 113, 227, 0.08);
 
-  /*
-   * Key effect:
-   *
-   * The cursor blends with whatever pixels
-   * are underneath it. This creates the
-   * localized text/background illumination.
-   */
-  mix-blend-mode: difference;
+  mix-blend-mode: normal;
 
-  /*
-   * GSAP controls translate movement.
-   * CSS handles size/morph transitions.
-   */
   transition:
     top 0.3s ease-out,
     left 0.3s ease-out,
@@ -316,11 +332,9 @@
     height 0.3s ease-out,
     border-radius 0.3s ease-out;
 
-  will-change:
-    transform,
-    width,
-    height;
+  will-change: transform, width, height;
 }
+
 
 
 /* =========================================

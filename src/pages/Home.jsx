@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import { Navbar } from "../components/Navbar";
-import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
 import { AboutSection } from "../components/AboutSection";
 import { SkillsSection } from "../components/SkillsSection";
@@ -95,9 +94,6 @@ export const Home = () => {
           !showLoader ? "portfolio-visible" : ""
           }`}
       >
-        {/* Background Effects */}
-        <StarBackground />
-
         {/* Navbar */}
         <Navbar />
 

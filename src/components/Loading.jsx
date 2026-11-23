@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import Marquee from "react-fast-marquee";
 import "./styles/Loading.css";
 
@@ -6,7 +7,9 @@ export const Loading = ({ percent, onComplete }) => {
   const [loaded, setLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  // When loading reaches 100%, change Loading -> Welcome
+  const completedRef = useRef(false);
+
+  // Loading -> Welcome -> Expanding capsule
   useEffect(() => {
     if (percent < 100) return;
 
@@ -15,28 +18,36 @@ export const Loading = ({ percent, onComplete }) => {
     }, 600);
 
     const exitTimer = setTimeout(() => {
-    // Expand the black loader until it covers the viewport.
       setClicked(true);
-    }, 1600);
-
-    const completeTimer = setTimeout(() => {
-      // Tell Home that the Hero can begin its entrance animation.
-      onComplete?.();
-    }, 2450);
+    }, 1800);
 
     return () => {
       clearTimeout(welcomeTimer);
       clearTimeout(exitTimer);
-      clearTimeout(completeTimer);
     };
-  }, [percent, onComplete]);
+  }, [percent]);
 
-  const handleMouseMove = (e) => {
-    const target = e.currentTarget;
+  // Start the Hero only after the screen exit animation finishes.
+  const handleExitComplete = (event) => {
+    if (event.target !== event.currentTarget) return;
+    if (completedRef.current) return;
+
+    if (
+      event.animationName === "loaderScreenReveal" ||
+      event.animationName === "loaderSimpleExit"
+    ) {
+      completedRef.current = true;
+      onComplete?.();
+    }
+  };
+
+  // Mouse-follow glow
+  const handleMouseMove = (event) => {
+    const target = event.currentTarget;
     const rect = target.getBoundingClientRect();
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
     target.style.setProperty("--mouse-x", `${x}px`);
     target.style.setProperty("--mouse-y", `${y}px`);
@@ -44,6 +55,7 @@ export const Loading = ({ percent, onComplete }) => {
 
   return (
     <>
+      {/* Loading Header */}
       <div className={`loading-header ${clicked ? "loader-out" : ""}`}>
         <a href="#hero" className="loader-title">
           pranav.dev
@@ -62,7 +74,14 @@ export const Loading = ({ percent, onComplete }) => {
         </div>
       </div>
 
-      <div className={`loading-screen ${ clicked ? "loading-screen-exit" : ""}`}>
+      {/* Main Loading Screen */}
+      <div
+        className={`loading-screen ${
+          clicked ? "loading-screen-exit" : ""
+        }`}
+        onAnimationEnd={handleExitComplete}
+      >
+        {/* Background Marquee */}
         <div className="loading-marquee">
           <Marquee speed={70} autoFill>
             <span>Software Developer</span>
@@ -70,6 +89,7 @@ export const Loading = ({ percent, onComplete }) => {
           </Marquee>
         </div>
 
+        {/* Expanding Capsule */}
         <div
           className={`loading-wrap ${
             clicked ? "loading-clicked" : ""
@@ -83,16 +103,19 @@ export const Loading = ({ percent, onComplete }) => {
               loaded ? "loading-complete" : ""
             }`}
           >
+            {/* Loading Percentage */}
             <div className="loading-container">
               <div className="loading-content">
                 <div className="loading-content-in">
-                  Loading <span>{Math.min(percent, 100)}%</span>
+                  Loading
+                  <span>{Math.min(percent, 100)}%</span>
                 </div>
               </div>
 
               <div className="loading-box" />
             </div>
 
+            {/* Welcome Message */}
             <div className="loading-content2">
               <span>Welcome</span>
             </div>
@@ -103,8 +126,7 @@ export const Loading = ({ percent, onComplete }) => {
   );
 };
 
-// Simulated loading progress.
-// We'll connect this to the application in the next step.
+// Simulated loading progress
 export const setProgress = (setLoading) => {
   let percent = 0;
   let interval;

@@ -1,4 +1,10 @@
-import { ArrowUp, Github, Linkedin } from "lucide-react";
+
+import {
+  ArrowUp,
+  Github,
+  Linkedin,
+  Mail,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 export const Footer = () => {
@@ -9,118 +15,132 @@ export const Footer = () => {
       setIsVisible(window.scrollY > 300);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const buttonClass =
-    "flex items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-110 active:scale-95";
+  const socialLinks = [
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/pranav-chamoli-08a335269/",
+      icon: Linkedin,
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/PranavChamoli06",
+      icon: Github,
+    },
+    {
+      label: "Email",
+      href: "mailto:pranavchamoli6@gmail.com",
+      icon: Mail,
+    },
+  ];
+
+  const iconClass = `
+    flex h-10 w-10 items-center justify-center
+    rounded-full
+    border border-transparent
+    text-white/60
+    transition-all duration-300
+    hover:border-white/[0.12]
+    hover:bg-white/[0.10]
+    hover:text-[#0071E3]
+    hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]
+    active:scale-95
+  `;
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[999]">
-      {/* Desktop */}
-      <div
-        className={`hidden md:flex justify-center pb-6 transition-all duration-500 ${
-          isVisible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-8 opacity-0"
-        }`}
-      >
+    <>
+      {/* Floating Social Navigation */}
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[999]">
         <div
-          className="
-            pointer-events-auto
-            flex
-            items-center
-            gap-5
-            rounded-full
-            border
-            border-white/10
-            bg-background/60
-            backdrop-blur-xl
-            px-6
-            py-3
-            shadow-[0_12px_40px_rgba(0,0,0,0.35)]
-          "
+          className={`flex justify-center px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] transition-all duration-500 ${
+            isVisible
+              ? "translate-y-0 opacity-100"
+              : "pointer-events-none translate-y-20 opacity-0"
+          }`}
         >
-          <a
-            href="https://www.linkedin.com/in/pranav-chamoli-08a335269/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonClass} h-10 w-10`}
+          <div
+                className="
+                  pointer-events-auto
+                  flex items-center gap-3 md:gap-5
+                  rounded-full
+                  border border-white/[0.18]
+                  bg-white/[0.07]
+                  px-4 py-2 md:px-5
+                  backdrop-blur-2xl
+                  shadow-[0_8px_40px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.12)]
+                  ring-1 ring-white/[0.04]
+                  "
           >
-            <Linkedin size={18} />
-          </a>
+            {socialLinks.map((item) => {
+              const Icon = item.icon;
 
-          <a
-            href="https://github.com/PranavChamoli06"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonClass} h-10 w-10`}
-          >
-            <Github size={18} />
-          </a>
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={
+                    item.label === "Email"
+                      ? undefined
+                      : "_blank"
+                  }
+                  rel={
+                    item.label === "Email"
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
+                  aria-label={item.label}
+                  title={item.label}
+                  className={iconClass}
+                >
+                  <Icon size={19} />
+                </a>
+              );
+            })}
 
-          <a
-            href="#hero"
-            className={`${buttonClass} h-10 w-10`}
-          >
-            <ArrowUp size={18} />
-          </a>
+            <div className="h-6 w-px bg-white/10" />
+
+            <a
+              href="#hero"
+              aria-label="Back to top"
+              title="Back to top"
+              className={iconClass}
+            >
+              <ArrowUp size={19} />
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Mobile */}
-      <div
-        className={`md:hidden flex justify-center px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] transition-all duration-500 ${
-          isVisible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-24 opacity-0"
-        }`}
-      >
-        <div
-          className="
-            pointer-events-auto
-            flex
-            items-center
-            justify-center
-            gap-6
-            rounded-full
-            border
-            border-white/10
-            bg-background/65
-            backdrop-blur-2xl
-            px-6
-            py-3
-            shadow-[0_12px_40px_rgba(0,0,0,0.35)]
-          "
-        >
+      {/* Copyright Footer */}
+      <footer className="border-t border-white/[0.08] bg-black px-6 py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
           <a
-            href="https://www.linkedin.com/in/pranav-chamoli-08a335269/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonClass} h-11 w-11`}
+            href="#hero"
+            className="text-lg font-semibold tracking-tight text-[#F5F5F7]"
           >
-            <Linkedin size={20} />
+            Pranav<span className="text-[#0071E3]">.</span>
           </a>
 
-          <a
-            href="https://github.com/PranavChamoli06"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonClass} h-11 w-11`}
-          >
-            <Github size={20} />
-          </a>
+          <p className="text-xs text-white/40">
+            © {new Date().getFullYear()} Pranav Chamoli. All rights reserved.
+          </p>
 
           <a
             href="#hero"
-            className={`${buttonClass} h-11 w-11`}
+            className="text-xs text-white/45 transition-colors hover:text-[#0071E3]"
           >
-            <ArrowUp size={20} />
+            Back to top ↑
           </a>
         </div>
-      </div>
-    </div>
+      </footer>
+    </>
   );
 };

@@ -5,141 +5,137 @@ export const HeroSection = ({ isVisible = true }) => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center px-5 pt-24 pb-8 overflow-hidden bg-background"  
     >
-      <div className="container max-w-4xl mx-auto text-center z-10">
-        <div className="space-y-6">
+      <div className="relative z-10 w-full max-w-5xl mx-auto text-center">
 
-          {/* Profile Image */}
-          <div
-            className={`flex justify-center mt-16 hero-reveal hero-profile ${
-              isVisible ? "hero-visible" : ""
-            }`}
-          >
+        {/* Profile Image */}
+        <div
+          className={`flex justify-center mb-7 hero-reveal hero-profile ${
+            isVisible ? "hero-visible" : ""
+          }`}
+        >
+          <div className="relative">
+            <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl scale-125" />
+
             <img
               src="/profile.png"
               alt="Pranav Chamoli"
-              className="w-40 h-40 rounded-full border-4 border-primary shadow-lg mb-6 transition-all duration-300 hover:shadow-[0_0_40px_rgba(139,92,246,0.6)]"
+              className="relative w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 object-cover rounded-full border border-white/20 shadow-[0_0_35px_rgba(0,113,227,0.16)] transition-all duration-500 hover:scale-105"
             />
           </div>
+        </div>
 
-          {/* Name */}
-          <h1
-            className={`text-4xl md:text-6xl font-bold tracking-tight hero-reveal hero-name ${
-              isVisible ? "hero-visible" : ""
-            }`}
+        {/* Introduction */}
+        <div
+          className={`mb-5 hero-reveal hero-tagline ${
+            isVisible ? "hero-visible" : ""
+          }`}
+        >
+          <span className="text-xs md:text-sm tracking-[0.2em] font-medium text-muted-foreground uppercase">
+            Full-Stack Developer
+          </span>
+        </div>
+
+        {/* Main Heading */}
+        <h1
+          className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] text-foreground hero-reveal hero-name ${
+            isVisible ? "hero-visible" : ""
+          }`}
+        >
+          Hi, I'm{" "}
+          <span className="text-primary">Pranav</span>
+          <br className="hidden sm:block" />
+          <span> Chamoli.</span>
+        </h1>
+
+        {/* Animated Description */}
+        <div
+          className={`mt-6 text-base md:text-xl text-muted-foreground max-w-3xl mx-auto min-h-[65px] leading-relaxed hero-reveal hero-tagline ${
+            isVisible ? "hero-visible" : ""
+          }`}
+        >
+          {isVisible && (
+            <TypeAnimation
+              sequence={[
+                "Building scalable web applications.",
+                2000,
+                "Java • Spring Boot • React Developer.",
+                2000,
+                "Turning ideas into digital experiences.",
+                2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          )}
+        </div>
+
+        {/* Action Buttons */}
+        <div
+          className={`mt-7 flex flex-col sm:flex-row items-center justify-center gap-4 hero-reveal hero-buttons ${
+            isVisible ? "hero-visible" : ""
+          }`}
+        >
+          <a href="#projects" className="cosmic-button min-w-44">
+            View My Work
+          </a>
+
+          <a
+            href="/PranavChamoli_Resume.pdf"
+            download
+            className="inline-flex items-center justify-center min-w-44 px-6 py-3 rounded-full border border-white/25 text-foreground font-medium hover:bg-white/10 hover:border-white/50 transition-all duration-300"
           >
-            <span>Hi, I'm</span>
+            Download Resume
+          </a>
+        </div>
 
-            <span className="text-primary">
-              {" "}
-              Pranav
-            </span>
-
-            <span className="text-gradient ml-2">
-              {" "}
-              Chamoli
-            </span>
-          </h1>
-
-          {/* Tagline */}
-          <div
-            className={`text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto min-h-[32px] hero-reveal hero-tagline ${
-              isVisible ? "hero-visible" : ""
-            }`}
+        {/* Social Links */}
+        <div
+          className={`mt-12 flex flex-wrap justify-center items-center gap-8 text-muted-foreground hero-reveal hero-socials ${
+            isVisible ? "hero-visible" : ""
+          }`}
+        >
+          <a
+            href="https://www.linkedin.com/in/pranav-chamoli-08a335269/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="flex items-center gap-2 hover:text-primary transition-colors"
           >
-            {isVisible && (
-              <TypeAnimation
-                sequence={[
-                  "Full-Stack Developer",
-                  2000,
+            <Linkedin size={21} />
+            <span>LinkedIn</span>
+          </a>
 
-                  "Java • Spring Boot • React Developer",
-                  2000,
-
-                  "Building scalable and efficient web applications",
-                  2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-              />
-            )}
-          </div>
-
-          {/* Buttons */}
-          <div
-            className={`pt-4 flex flex-col md:flex-row items-center justify-center gap-4 hero-reveal hero-buttons ${
-              isVisible ? "hero-visible" : ""
-            }`}
+          <a
+            href="https://github.com/PranavChamoli06"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="flex items-center gap-2 hover:text-primary transition-colors"
           >
-            <a href="#projects" className="cosmic-button">
-              View My Work
-            </a>
+            <Github size={21} />
+            <span>GitHub</span>
+          </a>
 
-            <a
-              href="/PranavChamoli_Resume.pdf"
-              download
-              className="cosmic-button"
-            >
-              Download Resume
-            </a>
-          </div>
-
-          {/* Social Links */}
-          <div
-            className={`flex flex-wrap justify-center items-center gap-6 pt-2 hero-reveal hero-socials ${
-              isVisible ? "hero-visible" : ""
-            }`}
+          <a
+            href="mailto:pranavchamoli6@gmail.com"
+            aria-label="Email"
+            className="flex items-center gap-2 hover:text-primary transition-colors"
           >
-            <a
-              href="https://www.linkedin.com/in/pranav-chamoli-08a335269/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Linkedin size={24} />
-
-              <span>LinkedIn</span>
-            </a>
-
-            <a
-              href="https://github.com/PranavChamoli06"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Github size={24} />
-
-              <span>GitHub</span>
-            </a>
-
-            <a
-              href="mailto:pranavchamoli6@gmail.com"
-              className="hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Mail size={24} />
-
-              <span>Mail</span>
-            </a>
-          </div>
-
+            <Mail size={21} />
+            <span>Email</span>
+          </a>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <div
-        className={`mt-20 flex flex-col items-center hero-reveal hero-scroll ${
+        className={`mt-16 flex flex-col items-center hero-reveal hero-scroll ${
           isVisible ? "hero-visible" : ""
         }`}
       >
-        <div className="flex flex-col items-center animate-bounce">
-          <span className="text-sm text-muted-foreground mb-2">
-            Scroll
-          </span>
-
-          <ArrowDown className="h-5 w-5 text-primary" />
-        </div>
       </div>
     </section>
   );

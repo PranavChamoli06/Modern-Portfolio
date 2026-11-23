@@ -1,23 +1,24 @@
+
 /* =========================================
-   OPENING LOADING SCREEN
+   APPLE PRO DARK - LOADING SCREEN
 ========================================= */
 
 .loading-screen {
   position: fixed;
   inset: 0;
-  width: 100vw;
+  width: 100%;
+  height: 100vh;
   height: 100dvh;
 
-  background-color: #eae5ec;
-
-  z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
 
   overflow: hidden;
-}
+  background: #000000;
 
+  z-index: 999999;
+}
 
 /* =========================================
    HEADER
@@ -25,23 +26,19 @@
 
 .loading-header {
   position: fixed;
-
   top: 0;
   left: 50%;
-
   transform: translateX(-50%);
 
   width: min(92%, 1400px);
-
   padding: 25px 0;
 
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 
+  color: #F5F5F7;
   z-index: 1000000;
-
-  color: #0a0a0a;
 
   transition:
     opacity 0.4s ease,
@@ -50,28 +47,20 @@
 
 .loader-title {
   color: inherit;
-
   font-size: 20px;
   font-weight: 700;
-
-  letter-spacing: 0.5px;
-
+  letter-spacing: -0.5px;
   text-decoration: none;
 }
 
 .loading-header.loader-out {
   opacity: 0;
-
-  transform:
-    translateX(-50%)
-    translateY(-20px);
-
+  transform: translateX(-50%) translateY(-20px);
   pointer-events: none;
 }
 
-
 /* =========================================
-   CENTRAL LOADER
+   CENTRAL LOADER CAPSULE
 ========================================= */
 
 .loading-wrap {
@@ -85,11 +74,9 @@
   min-height: 0;
 
   padding: 6px;
-
   border-radius: 9999px;
 
-  background-color: #000;
-
+  background: #000000;
   overflow: hidden;
 
   display: flex;
@@ -97,7 +84,8 @@
   justify-content: center;
 
   box-shadow:
-    0 15px 30px rgba(0, 0, 0, 0.2);
+    0 15px 45px rgba(0, 0, 0, 0.45),
+    0 0 30px rgba(0, 113, 227, 0.08);
 
   transition:
     min-width 0.8s cubic-bezier(0.33, 0.11, 1, 0.72),
@@ -106,26 +94,20 @@
     box-shadow 0.8s ease;
 
   transition-delay: 0.2s;
-
   z-index: 20;
 }
 
-
-/* =========================================
-   EXPANDING EXIT ANIMATION
-========================================= */
+/* Expand capsule to cover viewport */
 
 .loading-wrap.loading-clicked {
   min-width: calc(100vw + 5000px);
   min-height: calc(100vh + 1000px);
 
   border-radius: 9999px;
-
   box-shadow: none;
 
   transition-delay: 0s;
 }
-
 
 /* =========================================
    MOUSE GLOW
@@ -133,7 +115,6 @@
 
 .loading-hover {
   position: absolute;
-
   top: var(--mouse-y);
   left: var(--mouse-x);
 
@@ -141,15 +122,12 @@
   height: 120px;
 
   transform: translate(-50%, -50%);
-
   border-radius: 50%;
 
-  background-color: #a87cff;
-
+  background: #0071E3;
   filter: blur(35px);
 
   opacity: 0;
-
   transition: opacity 0.4s ease;
 
   pointer-events: none;
@@ -159,11 +137,9 @@
   opacity: 1;
 }
 
-.loading-clicked .loading-hover,
-.loading-clicked:hover .loading-hover {
+.loading-clicked .loading-hover {
   opacity: 0;
 }
-
 
 /* =========================================
    LOADING BUTTON
@@ -172,34 +148,33 @@
 .loading-button {
   position: relative;
 
+  min-width: 235px;
   padding: 20px 50px;
 
-  min-width: 235px;
-
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 9999px;
 
-  background-color: #000;
+  background: #000000;
+  color: #F5F5F7;
 
   overflow: hidden;
 
-  color: #fff;
-
   font-size: 18px;
   font-weight: 500;
-
   letter-spacing: 1px;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.06);
 
   z-index: 10;
 }
 
-
-/* Mouse glow inside button */
+/* Subtle cursor highlight */
 
 .loading-button::before {
   content: "";
 
   position: absolute;
-
   top: var(--mouse-y);
   left: var(--mouse-x);
 
@@ -207,15 +182,12 @@
   height: 80px;
 
   transform: translate(-50%, -50%);
-
   border-radius: 50%;
 
-  background-color: rgba(255, 255, 255, 0.8);
-
+  background: rgba(0, 113, 227, 0.35);
   filter: blur(60px);
 
   opacity: 0;
-
   transition: opacity 0.3s ease;
 
   pointer-events: none;
@@ -228,7 +200,6 @@
 .loading-clicked .loading-button::before {
   opacity: 0;
 }
-
 
 /* =========================================
    LOADING TEXT
@@ -244,23 +215,21 @@
   left: 50px;
 
   transform: translateY(-50%);
-
   z-index: 10;
 
-  transition: max-width 1s ease;
+  transition:
+    max-width 0.5s ease,
+    opacity 0.3s ease;
 }
 
 .loading-content {
   position: relative;
-
   width: 100%;
 
   overflow: hidden;
-
-  background-color: #000;
+  background: #000000;
 
   text-transform: uppercase;
-
   transition: 0.6s ease;
 }
 
@@ -280,14 +249,11 @@
 
 .loading-content span {
   position: static;
-  transform: none;
-
   flex-shrink: 0;
 
   font-weight: 300;
   opacity: 0.7;
 }
-
 
 /* =========================================
    BLINKING CURSOR
@@ -295,38 +261,30 @@
 
 .loading-box {
   position: absolute;
-
   right: 0;
-
   top: 50%;
 
-  transform:
-    translate(100%, -50%);
+  transform: translate(100%, -50%);
 
   width: 12px;
   height: 25px;
 
-  background-color: #fff;
-
+  background: #0071E3;
   animation: loaderBlink 1s linear infinite;
 }
 
 @keyframes loaderBlink {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0;
   }
 
-  25%,
-  75% {
+  25%, 75% {
     opacity: 1;
   }
 }
 
-
 /* =========================================
-   WELCOME TEXT
+   WELCOME MESSAGE
 ========================================= */
 
 .loading-content2 {
@@ -342,63 +300,77 @@
   justify-content: center;
 
   text-align: center;
-
   text-transform: uppercase;
-
   letter-spacing: 2px;
+
+  color: #F5F5F7;
 
   overflow: hidden;
 
+  opacity: 0;
+  transform: translateY(15px);
+
+  z-index: 11;
+
   transition:
     opacity 0.5s ease,
-    transform 0.8s ease;
+    transform 0.5s ease;
 }
 
+/* Reveal Welcome */
 
-/* Hide Loading text */
+.loading-complete .loading-content2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.loading-complete .loading-content2 span {
+  color: #F5F5F7;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide loading percentage */
 
 .loading-complete .loading-container {
   max-width: 0;
+  opacity: 0;
 }
 
-
-/* Hide blinking cursor */
+/* Stop blinking cursor */
 
 .loading-complete .loading-box {
   animation: blinkDone 0.3s forwards;
-
-  animation-delay: 0.8s;
 }
 
 @keyframes blinkDone {
-
   to {
     opacity: 0;
   }
 }
 
+/*
+  IMPORTANT:
+  Do not hide .loading-content2 when
+  .loading-clicked is applied.
 
-/* Welcome exits */
+  Welcome must remain visible while
+  the capsule expands.
+*/
 
 .loading-clicked .loading-content2 {
-  overflow: visible;
-
-  opacity: 0;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .loading-clicked .loading-content2 span {
-  transform: translateY(100px);
-
-  opacity: 0;
-
-  transition:
-    transform 0.8s ease,
-    opacity 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+  transition: none;
 }
 
-
 /* =========================================
-   MARQUEE
+   BACKGROUND MARQUEE
 ========================================= */
 
 .loading-marquee {
@@ -408,27 +380,22 @@
   left: 0;
 
   width: 100%;
-
   transform: translateY(-50%);
 
-  color: #121212;
+  color: rgba(245, 245, 247, 0.12);
 
   font-size: clamp(42px, 7vw, 100px);
-
   font-weight: 700;
 
   text-transform: uppercase;
-
   white-space: nowrap;
 
   overflow: hidden;
-
   pointer-events: none;
 }
 
 .loading-marquee span {
   position: relative;
-
   padding: 0 55px;
 }
 
@@ -436,7 +403,6 @@
   content: "";
 
   position: absolute;
-
   top: 50%;
   left: 0;
 
@@ -444,15 +410,13 @@
   height: 18px;
 
   transform: translate(-50%, -50%);
-
   border-radius: 50%;
 
-  background-color: #121212;
+  background: #0071E3;
 }
 
-
 /* =========================================
-   MINI HEADER GAME
+   MINI HEADER ANIMATION
 ========================================= */
 
 .loaderGame {
@@ -460,7 +424,6 @@
   height: 45px;
 
   overflow: hidden;
-
   transition: opacity 0.3s ease;
 }
 
@@ -473,24 +436,20 @@
   overflow: hidden;
 
   transform: scale(0.4);
-
   transform-origin: top left;
 }
 
 .loaderGame-in {
   position: absolute;
-
   left: 0;
 
   width: 1200px;
-
   overflow: hidden;
 
   animation: loaderGameMove 7s linear infinite;
 }
 
 @keyframes loaderGameMove {
-
   from {
     transform: translateX(0);
   }
@@ -508,14 +467,13 @@
 
   margin: 0 20px 40px;
 
-  background-color: #000;
+  background: #F5F5F7;
 }
 
 .loaderGame-line:nth-child(even) {
   margin-top: 40px;
   margin-bottom: 0;
 }
-
 
 /* =========================================
    MOVING BALL
@@ -531,60 +489,65 @@
   height: 15px;
 
   border-radius: 50%;
-
-  background-color: #a87cff;
+  background: #0071E3;
 
   animation: loaderBall 7s infinite
     cubic-bezier(0.3, 1.18, 0.63, 1.28);
 }
 
 @keyframes loaderBall {
-
-  0% {
+  0%, 30%, 67%, 90%, 100% {
     transform: translateY(70px);
   }
 
-  15% {
+  15%, 45%, 80% {
     transform: translateY(10px);
-  }
-
-  30% {
-    transform: translateY(70px);
-  }
-
-  45% {
-    transform: translateY(10px);
-  }
-
-  67% {
-    transform: translateY(70px);
-  }
-
-  80% {
-    transform: translateY(10px);
-  }
-
-  90%,
-  100% {
-    transform: translateY(70px);
   }
 }
 
+/* =========================================
+   CINEMATIC SCREEN EXIT
+========================================= */
+
+.loading-screen {
+  transform: translateY(0);
+  will-change: clip-path;
+}
+
+.loading-screen.loading-screen-exit {
+  animation: loaderScreenReveal 1.15s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    0.65s forwards;
+}
+
+@keyframes loaderScreenReveal {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* Keep capsule above background */
+
+.loading-screen-exit .loading-wrap {
+  z-index: 30;
+}
+
+/* Fade marquee before reveal */
+
+.loading-screen-exit .loading-marquee {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
 
 /* =========================================
    RESPONSIVE
 ========================================= */
 
-@media (min-width: 500px) {
-
-  .loader-title {
-    font-size: 20px;
-  }
-}
-
-
 @media (min-width: 1200px) {
-
   .loading-header {
     padding: 35px 0;
   }
@@ -594,18 +557,14 @@
   }
 }
 
-
 @media (min-width: 1400px) {
-
   .loading-wrap {
     --Lsize: 230px;
   }
 
   .loading-button {
     min-width: 350px;
-
     padding: 30px 70px;
-
     font-size: 25px;
   }
 
@@ -614,22 +573,14 @@
   }
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 600px) {
-
   .loading-header {
     width: 88%;
-
     padding-top: 20px;
   }
 
   .loaderGame {
     transform: scale(0.85);
-
     transform-origin: top right;
   }
 
@@ -648,98 +599,42 @@
 
   .loading-button {
     min-width: 235px;
-
     padding: 18px 45px;
-
     font-size: 16px;
   }
 }
 
+/* =========================================
+   TOUCH DEVICES
+========================================= */
+
+@media (hover: none) {
+  .loading-wrap:hover .loading-hover {
+    opacity: 0;
+  }
+
+  .loading-button:hover::before {
+    opacity: 0;
+  }
+}
 
 /* =========================================
    REDUCED MOTION
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .loaderGame-in,
   .loaderGame-ball,
   .loading-box {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
   }
-}
-
-/* =========================================
-   CINEMATIC LOADER EXIT
-========================================= */
-
-/*
- * Once WELCOME finishes, the black loader expands.
- * The loading screen itself then wipes upward,
- * exposing the portfolio underneath.
- */
-
-.loading-screen {
-  transform: translateY(0);
-
-  transition:
-    transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
-
-  will-change: transform;
-}
-
-
-/* Start the screen wipe after the black expansion */
-
-.loading-screen.loading-screen-exit {
-  animation: loaderScreenReveal 1.15s
-    cubic-bezier(0.76, 0, 0.24, 1)
-    forwards;
-
-  animation-delay: 0.65s;
-}
-
-
-@keyframes loaderScreenReveal {
-
-  0% {
-    clip-path: inset(0 0 0 0);
-  }
-
-  100% {
-    clip-path: inset(0 0 100% 0);
-  }
-}
-
-
-/* Keep the expanding black circle above the loader background */
-
-.loading-screen-exit .loading-wrap {
-  z-index: 30;
-}
-
-
-/* Fade marquee before the wipe */
-
-.loading-screen-exit .loading-marquee {
-  opacity: 0;
-
-  transition: opacity 0.35s ease;
-}
-
-
-/* Reduced motion */
-
-@media (prefers-reduced-motion: reduce) {
 
   .loading-screen.loading-screen-exit {
-    animation: loaderSimpleExit 0.2s ease forwards;
-    animation-delay: 0s;
+    animation: loaderSimpleExit 0.2s ease 0s forwards;
   }
 
   @keyframes loaderSimpleExit {
-
     to {
       opacity: 0;
     }

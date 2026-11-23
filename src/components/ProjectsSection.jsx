@@ -1,9 +1,12 @@
+
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
   ExternalLink,
   Github,
   X,
+  Code2,
+  Layers3,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -14,29 +17,19 @@ const projects = [
     category: ["java-core", "full-stack"],
     shortDesc: "Booking and Management System",
     image: "/projects/hrms.png",
-    tags: [
-      "Java",
-      "Spring Boot",
-      "MySQL",
-      "JWT",
-      "REST API",
-      "React",
-    ],
+    tags: ["Java", "Spring Boot", "MySQL", "JWT", "REST API", "React"],
     githubUrl:
       "https://github.com/PranavChamoli06/Full-Stack-HRMS",
     demoUrl: null,
-
     details: {
       description:
         "A full-stack hotel reservation management system for managing rooms, customers, reservations, and hotel operations through a centralized web application.",
-
       features: [
         "Room and reservation management",
         "JWT-based authentication",
         "REST API integration",
         "Customer management",
       ],
-
       technologies: [
         "Java",
         "Spring Boot",
@@ -47,36 +40,26 @@ const projects = [
       ],
     },
   },
-
   {
     id: 2,
     title: "Expense Tracker",
     category: ["full-stack"],
     shortDesc: "Personal Finance Management",
     image: "/projects/expense-tracker.png",
-    tags: [
-      "JavaScript",
-      "Node.js",
-      "React.js",
-      "Express.js",
-      "CSS3",
-    ],
+    tags: ["JavaScript", "Node.js", "React.js", "Express.js", "CSS3"],
     githubUrl:
       "https://github.com/PranavChamoli06/expense-tracker",
     demoUrl:
       "https://expense-tracker-omega-indol-39.vercel.app/",
-
     details: {
       description:
         "A full-stack personal finance application for tracking income and expenses through a simple, responsive, and easy-to-use interface.",
-
       features: [
         "Income and expense tracking",
         "Transaction management",
         "Dynamic financial calculations",
         "Responsive user interface",
       ],
-
       technologies: [
         "React.js",
         "JavaScript",
@@ -86,75 +69,50 @@ const projects = [
       ],
     },
   },
-
   {
     id: 3,
     title: "Hinglish Compiler",
     category: ["python"],
     shortDesc: "Custom Language Compiler",
     image: "/projects/hinglish-compiler.png",
-    tags: [
-      "Python",
-      "Tkinter",
-      "Graphviz",
-    ],
+    tags: ["Python", "Tkinter", "Graphviz"],
     githubUrl:
       "https://github.com/PranavChamoli06/Hinglish-Compiler",
     demoUrl: null,
-
     details: {
       description:
         "A custom compiler project that explores language processing concepts using a Hinglish-inspired programming syntax.",
-
       features: [
         "Custom language syntax",
         "Lexical and syntax analysis",
         "Parse tree generation",
         "Graphviz visualization",
       ],
-
-      technologies: [
-        "Python",
-        "Tkinter",
-        "Graphviz",
-      ],
+      technologies: ["Python", "Tkinter", "Graphviz"],
     },
   },
-
   {
     id: 4,
     title: "Real-Time Face Recognition",
     category: ["python"],
     shortDesc: "Real-time Computer Vision",
     image: "/projects/face-recognition.jpeg",
-    tags: [
-      "Python",
-      "OpenCV",
-      "Mediapipe",
-    ],
+    tags: ["Python", "OpenCV", "Mediapipe"],
     githubUrl:
       "https://github.com/PranavChamoli06/Real-Time-Face-Recognition",
     demoUrl: null,
-
     details: {
       description:
         "A real-time computer vision application that detects and processes faces through a live camera feed.",
-
       features: [
         "Real-time face detection",
         "Live webcam processing",
         "Facial landmark detection",
         "Real-time visual feedback",
       ],
-
-      technologies: [
-        "Python",
-        "OpenCV",
-        "MediaPipe",
-      ],
+      technologies: ["Python", "OpenCV", "MediaPipe"],
     },
   },
-
   {
     id: 5,
     title: "Quiz Application",
@@ -165,45 +123,32 @@ const projects = [
     githubUrl:
       "https://github.com/PranavChamoli06/QUIZ-APPLICATION",
     demoUrl: null,
-
     details: {
       description:
         "A Java desktop quiz application with an interactive graphical interface for answering questions and calculating quiz scores.",
-
       features: [
         "Multiple-choice questions",
         "Interactive quiz interface",
         "Question navigation",
         "Automatic score calculation",
       ],
-
-      technologies: [
-        "Java",
-        "Swing",
-        "AWT",
-      ],
+      technologies: ["Java", "Swing", "AWT"],
     },
   },
 ];
 
 const categories = [
-  "all",
-  "java-core",
-  "python",
-  "full-stack",
+  { id: "all", label: "All Projects" },
+  { id: "java-core", label: "Java" },
+  { id: "python", label: "Python" },
+  { id: "full-stack", label: "Full Stack" },
 ];
 
 export const ProjectsSection = () => {
-  const [activeCategory, setActiveCategory] =
-    useState("all");
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeProject, setActiveProject] = useState(null);
 
-  const [activeProject, setActiveProject] =
-    useState(null);
-
-  /* ======================================================
-     ESC KEY
-  ====================================================== */
-
+  // Close modal using Escape
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === "Escape") {
@@ -211,38 +156,24 @@ export const ProjectsSection = () => {
       }
     };
 
-    window.addEventListener(
-      "keydown",
-      handleEscape
-    );
+    window.addEventListener("keydown", handleEscape);
 
     return () => {
-      window.removeEventListener(
-        "keydown",
-        handleEscape
-      );
+      window.removeEventListener("keydown", handleEscape);
     };
   }, []);
 
-  /* ======================================================
-     LOCK BACKGROUND SCROLL
-  ====================================================== */
-
+  // Lock background scrolling while modal is open
   useEffect(() => {
-    if (activeProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (!activeProject) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [activeProject]);
-
-  /* ======================================================
-     FILTER PROJECTS
-  ====================================================== */
 
   const filteredProjects =
     activeCategory === "all"
@@ -251,17 +182,9 @@ export const ProjectsSection = () => {
           project.category.includes(activeCategory)
         );
 
-  /* ======================================================
-     OPEN PROJECT
-  ====================================================== */
-
   const openProject = (project) => {
     setActiveProject(project);
   };
-
-  /* ======================================================
-     CLOSE PROJECT
-  ====================================================== */
 
   const closeProject = () => {
     setActiveProject(null);
@@ -270,909 +193,484 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="py-24 px-4 relative"
+      className="relative bg-black text-[#F5F5F7] py-28 md:py-36 px-5 overflow-hidden"
     >
       <div className="container mx-auto max-w-6xl">
 
-        {/* ==================================================
-            SECTION TITLE
-        ================================================== */}
-
-        <motion.h2
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="
-            text-3xl
-            md:text-4xl
-            font-bold
-            mb-12
-            text-center
-          "
-        >
-          My{" "}
-          <span className="text-primary">
-            Projects
+        {/* SECTION HEADING */}
+        <div className="text-center mb-16">
+          <span className="text-sm font-medium tracking-[0.25em] uppercase text-[#0071E3]">
+            Selected Work
           </span>
-        </motion.h2>
 
-        {/* ==================================================
-            CATEGORY FILTER
-        ================================================== */}
+          <h2 className="mt-5 text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight">
+            My <span className="text-[#0071E3]">Projects.</span>
+          </h2>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((cat) => (
+          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-white/50 leading-relaxed">
+            A collection of applications and ideas
+            I've brought to life through code.
+          </p>
+        </div>
+
+        {/* CATEGORY FILTERS */}
+        <div className="flex flex-wrap justify-center gap-3 mb-14">
+          {categories.map((category) => (
             <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                closeProject();
-              }}
-              className={`px-5 py-2 rounded-full capitalize transition-all duration-300 ${
-                activeCategory === cat
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "bg-secondary/70 hover:bg-secondary"
-              }`}
+              key={category.id}
+              type="button"
+              onClick={() => setActiveCategory(category.id)}
+              aria-pressed={activeCategory === category.id}
+              className={`
+                px-5 py-2.5
+                rounded-full
+                text-sm font-medium
+                border
+                transition-all duration-300
+                ${
+                  activeCategory === category.id
+                    ? "bg-[#0071E3] text-white border-[#0071E3]"
+                    : "bg-[#111111] text-white/60 border-white/10 hover:border-[#0071E3]/50 hover:text-white"
+                }
+              `}
             >
-              {cat}
+              {category.label}
             </button>
           ))}
         </div>
 
-        {/* ==================================================
-            PROJECT GRID
-        ================================================== */}
-
-        <div
-          className="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            lg:grid-cols-3
-            gap-8
-          "
+        {/* PROJECT GRID */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {filteredProjects.map(
-            (project, index) => (
-              <motion.div
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.article
+                layout
                 key={project.id}
-                initial={{
-                  opacity: 0,
-                  y: 25,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.07,
-                }}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 15 }}
+                transition={{ duration: 0.3 }}
                 className="
                   group
-                  bg-card
-                  rounded-lg
+                  flex flex-col
                   overflow-hidden
-                  shadow-md
-                  transition-all
-                  duration-300
-                  hover:-translate-y-2
-                  hover:shadow-[0_15px_40px_rgba(139,92,246,0.25)]
+                  rounded-2xl
+                  bg-[#111111]
+                  border border-white/[0.08]
+                  transition-colors duration-300
+                  hover:border-[#0071E3]/40
                 "
               >
-
-                {/* =================================================
-                    PROJECT IMAGE
-                ================================================== */}
-
-                <div
+                {/* PROJECT IMAGE */}
+                <button
+                  type="button"
+                  onClick={() => openProject(project)}
+                  aria-label={`View details for ${project.title}`}
                   className="
-                    h-48
-                    overflow-hidden
-                    cursor-pointer
-                    relative
+                    relative block w-full
+                    h-52 overflow-hidden
+                    bg-[#080808]
+                    text-left
                   "
-                  onClick={() =>
-                    openProject(project)
-                  }
                 >
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="
-                      w-full
-                      h-full
+                      w-full h-full
                       object-cover
-                      transition-transform
-                      duration-500
-                      ease-out
-                      group-hover:scale-110
+                      transition-transform duration-700
+                      group-hover:scale-105
                     "
                   />
 
-                  {/* Hover Overlay */}
-
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      bg-black/40
+                  <div className="
+                    absolute inset-0
+                    bg-black/0
+                    group-hover:bg-black/35
+                    transition-colors duration-300
+                    flex items-center justify-center
+                  ">
+                    <span className="
+                      px-5 py-2.5
+                      rounded-full
+                      bg-black/75
+                      border border-white/20
+                      text-white text-sm
                       opacity-0
+                      translate-y-2
                       group-hover:opacity-100
-                      transition-opacity
-                      duration-300
-                      flex
-                      items-center
-                      justify-center
-                    "
-                  >
-                    <span
-                      className="
-                        px-4
-                        py-2
-                        rounded-full
-                        bg-background/90
-                        text-sm
-                        font-medium
-                      "
-                    >
-                      View Details
+                      group-hover:translate-y-0
+                      transition-all duration-300
+                    ">
+                      Explore Project
                     </span>
                   </div>
-                </div>
+                </button>
 
-                {/* =================================================
-                    CARD CONTENT
-                ================================================== */}
+                {/* PROJECT CONTENT */}
+                <div className="flex flex-col flex-1 p-6">
 
-                <div className="p-6">
-
-                  {/* Tags */}
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map(
-                      (tag, i) => (
-                        <span
-                          key={i}
-                          className="
-                            px-2
-                            py-1
-                            text-xs
-                            border
-                            rounded-full
-                            bg-secondary
-                            text-secondary-foreground
-                          "
-                        >
-                          {tag}
-                        </span>
-                      )
-                    )}
+                  {/* Technology Tags */}
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="
+                          px-3 py-1.5
+                          rounded-full
+                          bg-white/[0.05]
+                          border border-white/[0.07]
+                          text-xs text-white/60
+                        "
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
 
                   {/* Title */}
-
-                  <h3
-                    onClick={() =>
-                      openProject(project)
-                    }
+                  <button
+                    type="button"
+                    onClick={() => openProject(project)}
                     className="
-                      text-xl
-                      font-semibold
-                      mb-1
-                      cursor-pointer
-                      transition-colors
-                      group-hover:text-primary
+                      text-left
+                      text-xl font-semibold
+                      tracking-tight
+                      hover:text-[#0071E3]
+                      transition-colors duration-300
                     "
                   >
                     {project.title}
-                  </h3>
+                  </button>
 
-                  {/* Short Description */}
-
-                  <p
-                    className="
-                      text-muted-foreground
-                      text-sm
-                      mb-4
-                    "
-                  >
+                  <p className="mt-2 text-sm text-white/45">
                     {project.shortDesc}
                   </p>
 
-                  {/* =================================================
-                      CARD ACTION BUTTONS
-                  ================================================== */}
-
-                  <div className="flex gap-3">
-
-                    {/* GitHub */}
+                  {/* Actions */}
+                  <div className="flex flex-wrap gap-3 mt-7 pt-5 border-t border-white/[0.08]">
 
                     <a
-                      href={
-                        project.githubUrl
-                      }
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="
-                        cosmic-button
-                        flex
-                        items-center
-                        gap-2
-                        text-sm
+                        inline-flex items-center gap-2
+                        px-4 py-2.5
+                        rounded-full
+                        bg-[#0071E3]
+                        text-white text-sm font-medium
+                        hover:bg-[#0066CC]
+                        transition-colors duration-300
                       "
-                      onClick={(e) =>
-                        e.stopPropagation()
-                      }
                     >
+                      <Github size={15} />
                       Code
-                      <Github size={14} />
                     </a>
-
-                    {/* Demo */}
 
                     {project.demoUrl && (
                       <a
-                        href={
-                          project.demoUrl
-                        }
+                        href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="
-                          px-4
-                          py-2
-                          rounded-md
-                          flex
-                          items-center
-                          gap-2
-                          bg-gray-300
-                          text-gray-800
-                          hover:bg-gray-400
-                          text-sm
-                          transition-colors
+                          inline-flex items-center gap-2
+                          px-4 py-2.5
+                          rounded-full
+                          border border-[#0071E3]/50
+                          text-[#65AEFF] text-sm font-medium
+                          hover:bg-[#0071E3]/10
+                          transition-colors duration-300
                         "
-                        onClick={(e) =>
-                          e.stopPropagation()
-                        }
                       >
-                        Demo
-                        <ExternalLink
-                          size={14}
-                        />
+                        Live Demo
+                        <ExternalLink size={14} />
                       </a>
                     )}
 
                   </div>
                 </div>
-              </motion.div>
-            )
-          )}
-        </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-        {/* ==================================================
-            GITHUB BUTTON
-        ================================================== */}
+        {/* EMPTY STATE */}
+        {filteredProjects.length === 0 && (
+          <p className="text-center text-white/50 py-12">
+            No projects found in this category.
+          </p>
+        )}
 
-        <div className="text-center mt-16">
+        {/* GITHUB CTA */}
+        <div className="mt-20 text-center">
+          <p className="text-white/45 text-sm mb-5">
+            Want to explore more of my work?
+          </p>
+
           <a
-            className="
-              cosmic-button
-              w-fit
-              flex
-              items-center
-              mx-auto
-              gap-2
-            "
+            href="https://github.com/PranavChamoli06"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://github.com/PranavChamoli06"
+            className="
+              inline-flex items-center gap-3
+              px-7 py-3.5
+              rounded-full
+              bg-[#0071E3]
+              text-white font-medium
+              hover:bg-[#0066CC]
+              hover:scale-[1.03]
+              transition-all duration-300
+            "
           >
-            Check My Github
-            <ArrowRight size={16} />
+            Check My GitHub
+            <ArrowRight size={17} />
           </a>
         </div>
+
       </div>
 
-      {/* ====================================================
+      {/* ==========================================
           PROJECT DETAIL MODAL
-      ===================================================== */}
+      ========================================== */}
 
       <AnimatePresence>
         {activeProject && (
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="
-              fixed
-              inset-0
-              z-[9999]
-              flex
-              items-center
-              justify-center
-              p-4
-              md:p-8
-              bg-black/75
+              fixed inset-0 z-[10000]
+              bg-black/85
               backdrop-blur-md
+              flex items-center justify-center
+              p-3 md:p-8
             "
             onMouseDown={(event) => {
-              if (
-                event.target ===
-                event.currentTarget
-              ) {
+              if (event.target === event.currentTarget) {
                 closeProject();
               }
             }}
           >
-
-            {/* =================================================
-                MODAL
-            ================================================== */}
-
             <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.92,
-                y: 35,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.95,
-                y: 25,
-              }}
-              transition={{
-                duration: 0.45,
-                ease: [
-                  0.22,
-                  1,
-                  0.36,
-                  1,
-                ],
-              }}
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 15 }}
+              transition={{ duration: 0.3 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-modal-title"
               className="
                 relative
-                w-full
-                max-w-5xl
-                h-[88vh]
+                w-full max-w-5xl
+                max-h-[90vh]
                 overflow-hidden
                 rounded-2xl
-                bg-card
-                border
-                border-border/60
-                shadow-[0_30px_100px_rgba(0,0,0,0.55)]
+                bg-[#111111]
+                border border-white/10
+                shadow-2xl
               "
-              onMouseDown={(event) =>
-                event.stopPropagation()
-              }
             >
 
-              {/* =================================================
-                  CLOSE BUTTON
-              ================================================== */}
-
+              {/* CLOSE BUTTON */}
               <button
+                type="button"
                 onClick={closeProject}
                 aria-label="Close project details"
                 className="
-                  absolute
-                  top-4
-                  right-4
-                  z-50
-                  w-10
-                  h-10
+                  absolute top-4 right-4 z-30
+                  w-10 h-10
+                  flex items-center justify-center
                   rounded-full
-                  bg-black/60
-                  backdrop-blur-md
+                  bg-black/80
+                  border border-white/20
                   text-white
-                  flex
-                  items-center
-                  justify-center
-                  hover:bg-primary
-                  hover:scale-105
-                  transition-all
-                  duration-300
+                  hover:bg-[#0071E3]
+                  transition-colors duration-300
                 "
               >
-                <X size={20} />
+                <X size={19} />
               </button>
 
-              {/* =================================================
-                  HIDDEN-SCROLLBAR CONTAINER
-              ================================================== */}
+              {/* MODAL SCROLL AREA */}
+              <div className="max-h-[90vh] overflow-y-auto scrollbar-hide">
 
-              <div
-                className="
-                  h-full
-                  overflow-y-auto
-                  scrollbar-hide
-                "
-              >
+                <div className="
+                  grid grid-cols-1
+                  md:grid-cols-[42%_58%]
+                ">
 
-                {/* =================================================
-                    TWO COLUMN LAYOUT
-                ================================================== */}
+                  {/* PROJECT IMAGE */}
+                  <div className="
+                    relative
+                    min-h-[250px] md:min-h-[600px]
+                    bg-[#080808]
+                    flex items-center justify-center
+                    overflow-hidden
+                  ">
+                    <img
+                      src={activeProject.image}
+                      alt={activeProject.title}
+                      className="
+                        absolute inset-0
+                        w-full h-full
+                        object-cover
+                        blur-2xl scale-110
+                        opacity-20
+                      "
+                    />
 
-                <div
-                  className="
-                    grid
-                    grid-cols-1
-                    md:grid-cols-[42%_58%]
-                    min-h-full
-                  "
-                >
-
-                  {/* =================================================
-                      LEFT PROJECT IMAGE
-                  ================================================== */}
-
-                  <div
-                    className="
-                      relative
-                      h-64
-                      md:h-full
-                      min-h-[360px]
-                      overflow-hidden
-                      bg-black
-                    "
-                  >
-
-                    {/* Blurred Background */}
+                    <div className="absolute inset-0 bg-black/40" />
 
                     <img
-                      src={
-                        activeProject.image
-                      }
-                      alt=""
-                      aria-hidden="true"
+                      src={activeProject.image}
+                      alt={activeProject.title}
                       className="
-                        absolute
-                        inset-0
-                        w-full
-                        h-full
-                        object-cover
-                        scale-110
-                        blur-2xl
-                        opacity-40
-                      "
-                    />
-
-                    {/* Dark Overlay */}
-
-                    <div
-                      className="
-                        absolute
-                        inset-0
-                        bg-black/40
-                      "
-                    />
-
-                    {/* Complete Project Image */}
-
-                    <motion.img
-                      key={
-                        activeProject.id
-                      }
-                      initial={{
-                        scale: 1.08,
-                        opacity: 0,
-                      }}
-                      animate={{
-                        scale: 1,
-                        opacity: 1,
-                      }}
-                      transition={{
-                        duration: 0.7,
-                        ease: "easeOut",
-                      }}
-                      src={
-                        activeProject.image
-                      }
-                      alt={
-                        activeProject.title
-                      }
-                      className="
-                        relative
-                        z-10
-                        w-full
-                        h-full
+                        relative z-10
+                        w-full h-full
+                        max-h-[350px] md:max-h-[600px]
                         object-contain
-                        p-5
-                        md:p-8
+                        p-5 md:p-8
                       "
                     />
 
-                    {/* Bottom Gradient */}
-
-                    <div
-                      className="
-                        absolute
-                        inset-x-0
-                        bottom-0
-                        h-40
-                        bg-gradient-to-t
-                        from-black/80
-                        to-transparent
-                        z-20
-                        pointer-events-none
-                      "
-                    />
-
-                    {/* Project Name */}
-
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        y: 15,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      transition={{
-                        delay: 0.25,
-                        duration: 0.4,
-                      }}
-                      className="
-                        absolute
-                        bottom-6
-                        left-6
-                        right-6
-                        z-30
-                      "
-                    >
-                      <p
-                        className="
-                          text-white/70
-                          text-sm
-                          mb-1
-                        "
-                      >
-                        Project
+                    <div className="
+                      absolute inset-x-0 bottom-0
+                      z-20
+                      p-6
+                      bg-gradient-to-t from-black/90 to-transparent
+                    ">
+                      <p className="text-xs uppercase tracking-widest text-white/50 mb-2">
+                        Featured Project
                       </p>
 
-                      <h3
-                        className="
-                          text-white
-                          text-2xl
-                          font-bold
-                        "
-                      >
-                        {
-                          activeProject.title
-                        }
+                      <h3 className="text-xl md:text-2xl font-semibold text-white">
+                        {activeProject.title}
                       </h3>
-                    </motion.div>
+                    </div>
                   </div>
 
-                  {/* =================================================
-                      RIGHT PROJECT DETAILS
-                  ================================================== */}
+                  {/* PROJECT DETAILS */}
+                  <div className="p-6 md:p-10">
 
-                  <div
-                    className="
-                      p-6
-                      md:p-10
-                      flex
-                      flex-col
-                    "
-                  >
+                    <div className="mb-7">
+                      <div className="flex items-center gap-2 text-[#0071E3] mb-4">
+                        <Layers3 size={17} />
+                        <span className="text-xs uppercase tracking-[0.2em] font-medium">
+                          Project Overview
+                        </span>
+                      </div>
 
-                    {/* =================================================
-                        PROJECT TITLE
-                    ================================================== */}
-
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        x: 20,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                      }}
-                      transition={{
-                        delay: 0.15,
-                        duration: 0.4,
-                      }}
-                      className="mb-5"
-                    >
                       <h2
-                        className="
-                          text-3xl
-                          md:text-4xl
-                          font-bold
-                        "
+                        id="project-modal-title"
+                        className="text-2xl md:text-4xl font-semibold tracking-tight"
                       >
-                        {
-                          activeProject.title
-                        }
+                        {activeProject.title}
                       </h2>
-                    </motion.div>
+                    </div>
 
-                    {/* =================================================
-                        DESCRIPTION
-                    ================================================== */}
+                    {/* DESCRIPTION */}
+                    <div className="mb-8">
+                      <p className="text-white/55 text-sm md:text-base leading-8">
+                        {activeProject.details.description}
+                      </p>
+                    </div>
 
-                    <motion.p
-                      initial={{
-                        opacity: 0,
-                        x: 20,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                      }}
-                      transition={{
-                        delay: 0.22,
-                        duration: 0.4,
-                      }}
-                      className="
-                        text-muted-foreground
-                        leading-7
-                        text-sm
-                        md:text-base
-                        mb-7
-                      "
-                    >
-                      {
-                        activeProject
-                          .details
-                          .description
-                      }
-                    </motion.p>
-
-                    {/* =================================================
-                        TECHNOLOGIES
-                    ================================================== */}
-
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        x: 20,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                      }}
-                      transition={{
-                        delay: 0.28,
-                        duration: 0.4,
-                      }}
-                      className="mb-7"
-                    >
-                      <h3
-                        className="
-                          text-lg
-                          font-semibold
-                          mb-3
-                        "
-                      >
+                    {/* TECHNOLOGIES */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-semibold mb-4">
                         Technologies
                       </h3>
 
                       <div className="flex flex-wrap gap-2">
-
-                        {activeProject.details.technologies.map(
-                          (
-                            tech,
-                            index
-                          ) => (
-                            <motion.span
-                              key={tech}
-                              initial={{
-                                opacity: 0,
-                                scale: 0.9,
-                              }}
-                              animate={{
-                                opacity: 1,
-                                scale: 1,
-                              }}
-                              transition={{
-                                delay:
-                                  0.35 +
-                                  index *
-                                    0.04,
-                              }}
-                              className="
-                                px-3
-                                py-1.5
-                                rounded-full
-                                bg-secondary
-                                text-secondary-foreground
-                                text-sm
-                              "
-                            >
-                              {tech}
-                            </motion.span>
-                          )
-                        )}
-
+                        {activeProject.details.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="
+                              px-3 py-2
+                              rounded-full
+                              bg-[#0071E3]/10
+                              border border-[#0071E3]/20
+                              text-[#65AEFF]
+                              text-sm
+                            "
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       </div>
-                    </motion.div>
+                    </div>
 
-                    {/* =================================================
-                        KEY FEATURES
-                    ================================================== */}
-
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        x: 20,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                      }}
-                      transition={{
-                        delay: 0.32,
-                        duration: 0.4,
-                      }}
-                      className="mb-8"
-                    >
-                      <h3
-                        className="
-                          text-lg
-                          font-semibold
-                          mb-3
-                        "
-                      >
+                    {/* FEATURES */}
+                    <div className="mb-9">
+                      <h3 className="text-lg font-semibold mb-4">
                         Key Features
                       </h3>
 
-                      <div className="space-y-2.5">
+                      <div className="space-y-3">
+                        {activeProject.details.features.map((feature) => (
+                          <div
+                            key={feature}
+                            className="flex items-start gap-3 text-sm text-white/55"
+                          >
+                            <span className="text-[#0071E3] text-lg leading-5">
+                              •
+                            </span>
 
-                        {activeProject.details.features.map(
-                          (
-                            feature,
-                            index
-                          ) => (
-                            <motion.div
-                              key={feature}
-                              initial={{
-                                opacity: 0,
-                                x: 10,
-                              }}
-                              animate={{
-                                opacity: 1,
-                                x: 0,
-                              }}
-                              transition={{
-                                delay:
-                                  0.4 +
-                                  index *
-                                    0.06,
-                              }}
-                              className="
-                                flex
-                                items-start
-                                gap-2.5
-                                text-sm
-                                text-muted-foreground
-                              "
-                            >
-                              <span
-                                className="
-                                  text-primary
-                                  text-lg
-                                  leading-4
-                                "
-                              >
-                                •
-                              </span>
-
-                              <span>
-                                {feature}
-                              </span>
-                            </motion.div>
-                          )
-                        )}
-
+                            <span>{feature}</span>
+                          </div>
+                        ))}
                       </div>
-                    </motion.div>
+                    </div>
 
-                    {/* =================================================
-                        ACTION BUTTONS
-                    ================================================== */}
-
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        y: 10,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      transition={{
-                        delay: 0.5,
-                        duration: 0.4,
-                      }}
-                      className="
-                        flex
-                        flex-wrap
-                        gap-3
-                        mt-auto
-                        pt-4
-                      "
-                    >
-
-                      {/* GitHub */}
+                    {/* MODAL ACTIONS */}
+                    <div className="flex flex-wrap gap-3 pt-5 border-t border-white/10">
 
                       <a
-                        href={
-                          activeProject.githubUrl
-                        }
+                        href={activeProject.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="
-                          cosmic-button
-                          flex
-                          items-center
-                          gap-2
+                          inline-flex items-center gap-2
+                          px-5 py-3
+                          rounded-full
+                          bg-[#0071E3]
+                          text-white text-sm font-medium
+                          hover:bg-[#0066CC]
+                          transition-colors duration-300
                         "
                       >
                         <Github size={17} />
                         View Code
                       </a>
 
-                      {/* Demo */}
-
                       {activeProject.demoUrl && (
                         <a
-                          href={
-                            activeProject.demoUrl
-                          }
+                          href={activeProject.demoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="
-                            px-5
-                            py-2.5
-                            rounded-md
-                            flex
-                            items-center
-                            gap-2
-                            bg-gray-300
-                            text-gray-800
-                            hover:bg-gray-400
-                            transition-colors
+                            inline-flex items-center gap-2
+                            px-5 py-3
+                            rounded-full
+                            border border-[#0071E3]/50
+                            text-[#65AEFF] text-sm font-medium
+                            hover:bg-[#0071E3]/10
+                            transition-colors duration-300
                           "
                         >
-                          <ExternalLink
-                            size={17}
-                          />
+                          <ExternalLink size={17} />
                           Live Demo
                         </a>
                       )}
+                    </div>
 
-                    </motion.div>
                   </div>
                 </div>
               </div>

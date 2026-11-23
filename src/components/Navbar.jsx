@@ -1,3 +1,4 @@
+
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -17,76 +18,150 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu when pressing Escape
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
   return (
     <nav
       className={cn(
-      "fixed top-0 left-0 right-0 z-[9999] isolate transition-all duration-300",
-      isScrolled
-        ? "py-3 bg-background/80 backdrop-blur-md shadow-xs"
-        : "py-5"
+        "fixed top-0 left-0 right-0 z-[9999]",
+        "border-b transition-all duration-300",
+        isScrolled
+          ? "bg-black/90 border-white/10 py-3"
+          : "bg-black/50 border-transparent py-4"
       )}
     >
-      <div className="container flex items-center justify-between">
+      <div className="container mx-auto px-5 md:px-8 flex items-center justify-between">
+
+        {/* Logo */}
         <a
-          className="text-xl font-bold text-primary flex items-center"
           href="#hero"
+          onClick={() => setIsMenuOpen(false)}
+          className="relative z-[60] text-xl md:text-2xl font-semibold tracking-tight"
+          aria-label="Pranav Portfolio - Home"
         >
-          <span className="relative z-10">
-            <span className="text-glow text-foreground"> Pranav </span>{" "}
-            Portfolio
+          <span className="text-[#F5F5F7]">
+            Pranav
+          </span>
+          <span className="text-[#0071E3]">
+            {" "}Portfolio
           </span>
         </a>
 
-        {/* desktop nav */}
-        <div className="hidden md:flex space-x-8">
-          {navItems.map((item, key) => (
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-7 lg:gap-9">
+          {navItems.map((item) => (
             <a
-              key={key}
+              key={item.name}
               href={item.href}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
+              className={cn(
+                "relative text-sm font-medium",
+                "text-white/75",
+                "hover:text-[#0071E3]",
+                "transition-colors duration-300",
+                "focus-visible:outline-none",
+                "focus-visible:text-[#0071E3]"
+              )}
             >
               {item.name}
             </a>
           ))}
         </div>
 
-        {/* mobile nav */}
-
+        {/* Mobile Menu Button */}
         <button
+          type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="md:hidden p-2 text-foreground z-50"
+          className={cn(
+            "relative z-[60] md:hidden",
+            "flex items-center justify-center",
+            "w-10 h-10 rounded-full",
+            "text-white hover:text-[#0071E3]",
+            "hover:bg-white/5 transition-all duration-300"
+          )}
           aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}{" "}
+          {isMenuOpen ? (
+            <X size={23} strokeWidth={1.8} />
+          ) : (
+            <Menu size={23} strokeWidth={1.8} />
+          )}
         </button>
 
+        {/* Mobile Navigation Overlay */}
         <div
+          id="mobile-navigation"
           className={cn(
-            "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-            "transition-all duration-300 md:hidden",
+            "fixed inset-0 z-50 md:hidden",
+            "bg-black",
+            "flex flex-col items-center justify-center",
+            "transition-all duration-300",
             isMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
+              ? "opacity-100 visible pointer-events-auto"
+              : "opacity-0 invisible pointer-events-none"
           )}
+          aria-hidden={!isMenuOpen}
         >
-          <div className="flex flex-col space-y-8 text-xl">
-            {navItems.map((item, key) => (
+          <div className="flex flex-col items-center gap-8">
+            {navItems.map((item, index) => (
               <a
-                key={key}
+                key={item.name}
                 href={item.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                tabIndex={isMenuOpen ? 0 : -1}
                 onClick={() => setIsMenuOpen(false)}
+                style={{
+                  transitionDelay: isMenuOpen
+                    ? `${index * 50}ms`
+                    : "0ms",
+                }}
+                className={cn(
+                  "text-2xl font-medium tracking-tight",
+                  "text-white/80 hover:text-[#0071E3]",
+                  "transition-all duration-300",
+                  isMenuOpen
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-3 opacity-0"
+                )}
               >
                 {item.name}
               </a>
             ))}
           </div>
+
+          <p className="absolute bottom-10 text-xs text-white/30 tracking-widest">
+            PRANAV CHAMOLI
+          </p>
         </div>
       </div>
     </nav>
