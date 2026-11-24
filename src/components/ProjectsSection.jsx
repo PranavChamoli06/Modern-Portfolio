@@ -5,7 +5,6 @@ import {
   ExternalLink,
   Github,
   X,
-  Code2,
   Layers3,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -49,8 +48,7 @@ const projects = [
     tags: ["JavaScript", "Node.js", "React.js", "Express.js", "CSS3"],
     githubUrl:
       "https://github.com/PranavChamoli06/expense-tracker",
-    demoUrl:
-      "https://expense-tracker-omega-indol-39.vercel.app/",
+    demoUrl: null,
     details: {
       description:
         "A full-stack personal finance application for tracking income and expenses through a simple, responsive, and easy-to-use interface.",
@@ -242,7 +240,7 @@ export const ProjectsSection = () => {
         {/* PROJECT GRID */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
@@ -255,7 +253,7 @@ export const ProjectsSection = () => {
                 transition={{ duration: 0.3 }}
                 className="
                   group
-                  flex flex-col
+                  flex h-full flex-col
                   overflow-hidden
                   rounded-2xl
                   bg-[#111111]
@@ -271,7 +269,7 @@ export const ProjectsSection = () => {
                   aria-label={`View details for ${project.title}`}
                   className="
                     relative block w-full
-                    h-52 overflow-hidden
+                    h-52 shrink-0 overflow-hidden
                     bg-[#080808]
                     text-left
                   "
@@ -313,9 +311,9 @@ export const ProjectsSection = () => {
                 </button>
 
                 {/* PROJECT CONTENT */}
-                <div className="flex flex-col flex-1 p-6">
+                <div className="flex flex-1 flex-col p-6">
 
-                  {/* Technology Tags */}
+                  {/* TECHNOLOGY TAGS */}
                   <div className="flex flex-wrap gap-2 mb-5">
                     {project.tags.map((tag) => (
                       <span
@@ -333,7 +331,7 @@ export const ProjectsSection = () => {
                     ))}
                   </div>
 
-                  {/* Title */}
+                  {/* TITLE */}
                   <button
                     type="button"
                     onClick={() => openProject(project)}
@@ -352,8 +350,8 @@ export const ProjectsSection = () => {
                     {project.shortDesc}
                   </p>
 
-                  {/* Actions */}
-                  <div className="flex flex-wrap gap-3 mt-7 pt-5 border-t border-white/[0.08]">
+                  {/* ACTIONS - ALIGNED AT BOTTOM */}
+                  <div className="mt-auto flex flex-wrap gap-3 border-t border-white/[0.08] pt-6 mt-7">
 
                     <a
                       href={project.githubUrl}
@@ -392,7 +390,6 @@ export const ProjectsSection = () => {
                         <ExternalLink size={14} />
                       </a>
                     )}
-
                   </div>
                 </div>
               </motion.article>
@@ -435,10 +432,7 @@ export const ProjectsSection = () => {
 
       </div>
 
-      {/* ==========================================
-          PROJECT DETAIL MODAL
-      ========================================== */}
-
+      {/* PROJECT DETAIL MODAL */}
       <AnimatePresence>
         {activeProject && (
           <motion.div

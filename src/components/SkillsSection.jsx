@@ -4,7 +4,6 @@ import {
   Server,
   PanelsTopLeft,
   ClipboardCheck,
-  Wrench,
 } from "lucide-react";
 
 const skillGroups = [
@@ -78,17 +77,26 @@ export const SkillsSection = () => {
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Staggered Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
 
-          {skillGroups.map((group) => {
+          {skillGroups.map((group, index) => {
             const Icon = group.icon;
+
+            const desktopPosition =
+              index === 3
+                ? "lg:col-start-2"
+                : index === 4
+                  ? "lg:col-start-4"
+                  : "";
 
             return (
               <div
                 key={group.number}
-                className="
+                className={`
                   group relative
+                  col-span-1 md:col-span-1 lg:col-span-2
+                  ${desktopPosition}
                   p-7 md:p-8
                   min-h-[250px]
                   rounded-2xl
@@ -97,7 +105,7 @@ export const SkillsSection = () => {
                   transition-all duration-300
                   hover:border-[#0071E3]/50
                   hover:-translate-y-1
-                "
+                `}
               >
                 {/* Card Header */}
                 <div className="flex justify-between items-center mb-9">
@@ -151,6 +159,7 @@ export const SkillsSection = () => {
               </div>
             );
           })}
+
         </div>
 
         {/* Tools & Technologies */}

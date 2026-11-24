@@ -1,17 +1,18 @@
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+
+import { Github, Linkedin, Mail } from "lucide-react";
 import { TypeAnimation } from "react-type-animation";
 
 export const HeroSection = ({ isVisible = true }) => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-5 pt-24 pb-8 overflow-hidden bg-background"  
+      className="relative min-h-screen flex flex-col items-center justify-center px-5 pt-20 pb-10 sm:pt-24 md:pb-8 overflow-hidden bg-background"
     >
       <div className="relative z-10 w-full max-w-5xl mx-auto text-center">
 
         {/* Profile Image */}
         <div
-          className={`flex justify-center mb-7 hero-reveal hero-profile ${
+          className={`flex justify-center mb-6 md:mb-7 hero-reveal hero-profile ${
             isVisible ? "hero-visible" : ""
           }`}
         >
@@ -21,18 +22,18 @@ export const HeroSection = ({ isVisible = true }) => {
             <img
               src="/profile.png"
               alt="Pranav Chamoli"
-              className="relative w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 object-cover rounded-full border border-white/20 shadow-[0_0_35px_rgba(0,113,227,0.16)] transition-all duration-500 hover:scale-105"
+              className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 object-cover rounded-full border border-white/20 shadow-[0_0_35px_rgba(0,113,227,0.16)] transition-all duration-500 hover:scale-105"
             />
           </div>
         </div>
 
         {/* Introduction */}
         <div
-          className={`mb-5 hero-reveal hero-tagline ${
+          className={`mb-4 md:mb-5 hero-reveal hero-tagline ${
             isVisible ? "hero-visible" : ""
           }`}
         >
-          <span className="text-xs md:text-sm tracking-[0.2em] font-medium text-muted-foreground uppercase">
+          <span className="text-xs sm:text-sm tracking-[0.18em] md:tracking-[0.2em] font-medium text-muted-foreground uppercase">
             Full-Stack Developer
           </span>
         </div>
@@ -51,7 +52,7 @@ export const HeroSection = ({ isVisible = true }) => {
 
         {/* Animated Description */}
         <div
-          className={`mt-6 text-base md:text-xl text-muted-foreground max-w-3xl mx-auto min-h-[65px] leading-relaxed hero-reveal hero-tagline ${
+          className={`mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto min-h-[48px] md:min-h-[65px] leading-relaxed hero-reveal hero-tagline ${
             isVisible ? "hero-visible" : ""
           }`}
         >
@@ -74,18 +75,21 @@ export const HeroSection = ({ isVisible = true }) => {
 
         {/* Action Buttons */}
         <div
-          className={`mt-7 flex flex-col sm:flex-row items-center justify-center gap-4 hero-reveal hero-buttons ${
+          className={`mt-5 md:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 hero-reveal hero-buttons ${
             isVisible ? "hero-visible" : ""
           }`}
         >
-          <a href="#projects" className="cosmic-button min-w-44">
+          <a
+            href="#projects"
+            className="cosmic-button w-full max-w-[240px] sm:w-auto sm:max-w-none min-w-44"
+          >
             View My Work
           </a>
 
           <a
             href="/PranavChamoli_Resume.pdf"
             download
-            className="inline-flex items-center justify-center min-w-44 px-6 py-3 rounded-full border border-white/25 text-foreground font-medium hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+            className="inline-flex items-center justify-center w-full max-w-[240px] sm:w-auto sm:max-w-none min-w-44 px-6 py-3 rounded-full border border-white/25 text-foreground font-medium hover:bg-white/10 hover:border-white/50 transition-all duration-300"
           >
             Download Resume
           </a>
@@ -93,7 +97,7 @@ export const HeroSection = ({ isVisible = true }) => {
 
         {/* Social Links */}
         <div
-          className={`mt-12 flex flex-wrap justify-center items-center gap-8 text-muted-foreground hero-reveal hero-socials ${
+          className={`mt-8 md:mt-12 flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-muted-foreground hero-reveal hero-socials ${
             isVisible ? "hero-visible" : ""
           }`}
         >
@@ -104,7 +108,7 @@ export const HeroSection = ({ isVisible = true }) => {
             aria-label="LinkedIn"
             className="flex items-center gap-2 hover:text-primary transition-colors"
           >
-            <Linkedin size={21} />
+            <Linkedin size={20} />
             <span>LinkedIn</span>
           </a>
 
@@ -115,7 +119,7 @@ export const HeroSection = ({ isVisible = true }) => {
             aria-label="GitHub"
             className="flex items-center gap-2 hover:text-primary transition-colors"
           >
-            <Github size={21} />
+            <Github size={20} />
             <span>GitHub</span>
           </a>
 
@@ -124,18 +128,11 @@ export const HeroSection = ({ isVisible = true }) => {
             aria-label="Email"
             className="flex items-center gap-2 hover:text-primary transition-colors"
           >
-            <Mail size={21} />
+            <Mail size={20} />
             <span>Email</span>
           </a>
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div
-        className={`mt-16 flex flex-col items-center hero-reveal hero-scroll ${
-          isVisible ? "hero-visible" : ""
-        }`}
-      >
       </div>
     </section>
   );

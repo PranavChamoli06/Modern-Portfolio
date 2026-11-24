@@ -127,57 +127,101 @@ export const Loading = ({ percent, onComplete }) => {
 };
 
 // Simulated loading progress
+
 export const setProgress = (setLoading) => {
   let percent = 0;
-  let interval;
+  let interval = null;
+  let stopped = false;
 
-  interval = setInterval(() => {
-    if (percent <= 50) {
-      const randomIncrease = Math.round(Math.random() * 5);
-
-      percent = Math.min(percent + randomIncrease, 100);
-      setLoading(percent);
-    } else {
+  const stopInterval = () => {
+    if (interval !== null) {
       clearInterval(interval);
-
-      interval = setInterval(() => {
-        percent += Math.round(Math.random());
-
-        if (percent > 91) {
-          clearInterval(interval);
-          return;
-        }
-
-        setLoading(percent);
-      }, 300);
+      interval = null;
     }
-  }, 100);
+  };
 
+  // Stop progress without changing its current value.
+  const stop = () => {
+    stopped = true;
+    stopInterval();
+  };
+
+  // Immediately complete loading.
   const clear = () => {
-    clearInterval(interval);
+    if (stopped) return;
+
+    stopInterval();
     percent = 100;
     setLoading(100);
   };
 
+  // Gradually complete loading.
   const loaded = () => {
+    stopInterval();
+
     return new Promise((resolve) => {
-      clearInterval(interval);
+      if (stopped) {
+        resolve(percent);
+        return;
+      }
 
       interval = setInterval(() => {
+        if (stopped) {
+          stopInterval();
+          resolve(percent);
+          return;
+        }
+
         if (percent < 100) {
           percent += 1;
           setLoading(percent);
-        } else {
-          clearInterval(interval);
+        }
+
+        if (percent >= 100) {
+          percent = 100;
+          stopInterval();
           resolve(percent);
         }
       }, 20);
     });
   };
 
+  // Initial simulated progress.
+  interval = setInterval(() => {
+    if (stopped) {
+      stopInterval();
+      return;
+    }
+
+    if (percent < 50) {
+      const increase = Math.round(Math.random() * 5);
+
+      percent = Math.min(percent + increase, 50);
+      setLoading(percent);
+    } else {
+      stopInterval();
+
+      interval = setInterval(() => {
+        if (stopped) {
+          stopInterval();
+          return;
+        }
+
+        if (percent < 91) {
+          percent += Math.round(Math.random());
+          setLoading(percent);
+        } else {
+          stopInterval();
+        }
+      }, 300);
+    }
+  }, 100);
+
   return {
     loaded,
     clear,
+    stop,
     getPercent: () => percent,
   };
 };
+
