@@ -133,6 +133,36 @@ const projects = [
       technologies: ["Java", "Swing", "AWT"],
     },
   },
+  {
+    id: 6,
+    title: "AI Volume Hand Tracking",
+    category: ["python"],
+    shortDesc: "Real-Time Touchless Volume Control",
+    image: "/projects/volume-hand-tracking.png",
+    tags: ["Python", "OpenCV", "Mediapipe", "Numpy", "PyCaw"],
+    githubUrl:
+      "https://github.com/PranavChamoli06/VOLUME-HAND-TRACKING",
+    demoUrl: null,
+    details: {
+      description:
+         "A real-time computer vision application that enables touchless Windows volume control using hand gestures. It uses MediaPipe to detect 21 hand landmarks and OpenCV to track the distance between the thumb and index finger, translating finger movements into system volume adjustments.",
+      features: [
+        "Real-time hand detection and landmark tracking",
+        "Touchless volume adjustment using finger distance",
+        "Gesture-based mute and unmute functionality",
+        "Exponential smoothing for stable volume control",
+        "Live webcam visualization with volume percentage and FPS",
+        "Windows system audio integration using PyCaw",
+      ],
+      technologies: [
+         "Python",
+        "OpenCV",
+        "MediaPipe Tasks",
+        "NumPy",
+        "PyCaw",
+      ],
+    },
+  },
 ];
 
 const categories = [
