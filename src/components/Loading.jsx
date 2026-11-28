@@ -1,6 +1,5 @@
 
 import { useEffect, useRef, useState } from "react";
-import Marquee from "react-fast-marquee";
 import "./styles/Loading.css";
 
 export const Loading = ({ percent, onComplete }) => {
@@ -9,7 +8,12 @@ export const Loading = ({ percent, onComplete }) => {
 
   const completedRef = useRef(false);
 
-  // Loading -> Welcome -> Expanding capsule
+  const progressPercent = Math.min(
+    Math.max(percent, 0),
+    100
+  );
+
+  // Loading -> Welcome -> Exit
   useEffect(() => {
     if (percent < 100) return;
 
@@ -27,7 +31,7 @@ export const Loading = ({ percent, onComplete }) => {
     };
   }, [percent]);
 
-  // Start the Hero only after the screen exit animation finishes.
+  // Complete screen transition
   const handleExitComplete = (event) => {
     if (event.target !== event.currentTarget) return;
     if (completedRef.current) return;
@@ -41,92 +45,126 @@ export const Loading = ({ percent, onComplete }) => {
     }
   };
 
-  // Mouse-follow glow
-  const handleMouseMove = (event) => {
-    const target = event.currentTarget;
-    const rect = target.getBoundingClientRect();
-
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    target.style.setProperty("--mouse-x", `${x}px`);
-    target.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   return (
-    <>
-      {/* Loading Header */}
-      <div className={`loading-header ${clicked ? "loader-out" : ""}`}>
+    <div
+      className={`loading-screen ${
+        clicked ? "loading-screen-exit" : ""
+      }`}
+      onAnimationEnd={handleExitComplete}
+    >
+      {/* Background atmosphere */}
+      <div className="loading-atmosphere" />
+
+      {/* Top Branding */}
+      <header className="loading-header">
         <a href="#hero" className="loader-title">
-          pranav.dev
+          pranav<span>.</span>dev
         </a>
 
-        <div className="loaderGame">
-          <div className="loaderGame-container">
-            <div className="loaderGame-in">
-              {[...Array(27)].map((_, index) => (
-                <div className="loaderGame-line" key={index} />
-              ))}
-            </div>
-
-            <div className="loaderGame-ball" />
-          </div>
+        <div className="loading-header-right">
+          <span>PORTFOLIO</span>
+          <span className="loading-header-dot" />
+          <span>2026</span>
         </div>
-      </div>
+      </header>
 
-      {/* Main Loading Screen */}
-      <div
-        className={`loading-screen ${
-          clicked ? "loading-screen-exit" : ""
-        }`}
-        onAnimationEnd={handleExitComplete}
-      >
-        {/* Background Marquee */}
-        <div className="loading-marquee">
-          <Marquee speed={70} autoFill>
-            <span>Software Developer</span>
-            <span>Creative Coder</span>
-          </Marquee>
-        </div>
-
-        {/* Expanding Capsule */}
+      {/* Main Introduction */}
+      <main className="loading-main">
         <div
-          className={`loading-wrap ${
-            clicked ? "loading-clicked" : ""
+          className={`loading-intro ${
+            loaded ? "loading-intro-complete" : ""
           }`}
-          onMouseMove={handleMouseMove}
         >
-          <div className="loading-hover" />
+          {/* Eyebrow */}
+          <div className="loading-eyebrow">
+            <span className="loading-eyebrow-line" />
+            <span>HELLO, I'M</span>
+          </div>
 
+          {/* Main Identity */}
+          <h1 className="loading-name">
+            PRANAV
+            <br />
+            CHAMOLI
+          </h1>
+
+          {/* Professional Identity */}
+          <p className="loading-description">
+            Developer. Creator. Problem Solver.
+          </p>
+        </div>
+
+        {/* Minimal Progress Section */}
+        <div className="loading-progress-section">
+          <div className="loading-progress-info">
+            <span className="loading-progress-label">
+              {loaded
+                ? "WELCOME TO MY PORTFOLIO"
+                : "INITIALIZING EXPERIENCE"}
+            </span>
+
+            <span className="loading-percentage">
+              {progressPercent}
+              <span>%</span>
+            </span>
+          </div>
+
+          {/* White Progress Line + Pikachu */}
           <div
-            className={`loading-button ${
-              loaded ? "loading-complete" : ""
-            }`}
+            className="loading-progress-track"
+            role="progressbar"
+            aria-label="Portfolio loading progress"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressPercent}
           >
-            {/* Loading Percentage */}
-            <div className="loading-container">
-              <div className="loading-content">
-                <div className="loading-content-in">
-                  Loading
-                  <span>{Math.min(percent, 100)}%</span>
-                </div>
-              </div>
+            {/* White Progress Fill */}
+            <div
+              className="loading-progress-fill"
+              style={{
+                width: `${progressPercent}%`,
+              }}
+            />
 
-              <div className="loading-box" />
-            </div>
-
-            {/* Welcome Message */}
-            <div className="loading-content2">
-              <span>Welcome</span>
+            {/* Animated Pikachu */}
+            <div
+              className={`loading-runner ${
+                progressPercent >= 100 ? "loading-runner-complete" : ""
+              }`}
+              style={{
+                left: `${Math.min(progressPercent, 95)}%`,
+              }}
+              aria-hidden="true"
+            >
+              <img
+                src="/pikachu.gif"
+                alt=""
+                draggable="false"
+              />
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </main>
+
+      {/* Bottom Branding */}
+      <footer className="loading-footer">
+        <span>SOFTWARE DEVELOPER</span>
+
+        <span className="loading-footer-center">
+          <span />
+          BUILDING DIGITAL EXPERIENCES
+        </span>
+
+        <span>PRANAV CHAMOLI © 2026</span>
+      </footer>
+    </div>
   );
 };
 
-// Simulated loading progress
+
+// =========================================
+// SIMULATED LOADING PROGRESS
+// =========================================
 
 export const setProgress = (setLoading) => {
   let percent = 0;
@@ -140,13 +178,13 @@ export const setProgress = (setLoading) => {
     }
   };
 
-  // Stop progress without changing its current value.
+  // Stop progress
   const stop = () => {
     stopped = true;
     stopInterval();
   };
 
-  // Immediately complete loading.
+  // Complete immediately
   const clear = () => {
     if (stopped) return;
 
@@ -155,7 +193,7 @@ export const setProgress = (setLoading) => {
     setLoading(100);
   };
 
-  // Gradually complete loading.
+  // Gradually complete loading
   const loaded = () => {
     stopInterval();
 
@@ -186,7 +224,7 @@ export const setProgress = (setLoading) => {
     });
   };
 
-  // Initial simulated progress.
+  // Initial simulated loading progress
   interval = setInterval(() => {
     if (stopped) {
       stopInterval();
@@ -224,4 +262,3 @@ export const setProgress = (setLoading) => {
     getPercent: () => percent,
   };
 };
-
