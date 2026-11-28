@@ -1,0 +1,427 @@
+
+/* =========================================
+   LIQUID GLASS DESIGN SYSTEM
+   Portfolio — Pranav Chamoli
+========================================= */
+
+:root {
+  /* Glass surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.075);
+  --glass-bg-strong: rgba(255, 255, 255, 0.12);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.045);
+
+  /* Glass borders */
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-soft: rgba(255, 255, 255, 0.10);
+  --glass-border-highlight: rgba(255, 255, 255, 0.32);
+
+  /* Lighting */
+  --glass-blue: rgba(0, 113, 227, 0.18);
+  --glass-blue-strong: rgba(0, 113, 227, 0.30);
+
+  /* Shadows */
+  --glass-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  --glass-shadow-hover:
+    0 16px 45px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(0, 113, 227, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  /* Blur */
+  --glass-blur: 24px;
+  --glass-blur-heavy: 36px;
+
+  /* Radius */
+  --glass-radius: 24px;
+  --glass-radius-small: 16px;
+
+  /* Transition */
+  --glass-transition:
+    0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================
+   GLOBAL BACKGROUND
+========================================= */
+
+html {
+  background: #05070c;
+}
+
+body {
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(0, 113, 227, 0.13),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 85% 35%,
+      rgba(80, 100, 255, 0.08),
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 50% 90%,
+      rgba(0, 113, 227, 0.09),
+      transparent 42%
+    ),
+    #05070c;
+
+  background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Ambient light layer */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(0, 113, 227, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(100, 120, 255, 0.08),
+      transparent 30%
+    );
+
+  filter: blur(50px);
+}
+
+
+/* =========================================
+   PRIMARY LIQUID GLASS SURFACE
+========================================= */
+
+.liquid-glass {
+  position: relative;
+  isolation: isolate;
+
+  background: var(--glass-bg);
+
+  border: 1px solid var(--glass-border);
+
+  border-radius: var(--glass-radius);
+
+  backdrop-filter:
+    blur(var(--glass-blur))
+    saturate(180%);
+
+  -webkit-backdrop-filter:
+    blur(var(--glass-blur))
+    saturate(180%);
+
+  box-shadow: var(--glass-shadow);
+
+  transition:
+    background var(--glass-transition),
+    border-color var(--glass-transition),
+    box-shadow var(--glass-transition),
+    transform var(--glass-transition);
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   GLASS SPECULAR HIGHLIGHT
+========================================= */
+
+.liquid-glass::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.06) 18%,
+      transparent 45%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.07) 100%
+    );
+
+  opacity: 0.65;
+}
+
+
+/* =========================================
+   GLASS INNER EDGE
+========================================= */
+
+.liquid-glass::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  pointer-events: none;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================
+   STRONG GLASS SURFACE
+========================================= */
+
+.liquid-glass-strong {
+  background: var(--glass-bg-strong);
+
+  border: 1px solid var(--glass-border-highlight);
+
+  backdrop-filter:
+    blur(var(--glass-blur-heavy))
+    saturate(200%);
+
+  -webkit-backdrop-filter:
+    blur(var(--glass-blur-heavy))
+    saturate(200%);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+
+/* =========================================
+   SUBTLE GLASS SURFACE
+========================================= */
+
+.liquid-glass-subtle {
+  background: var(--glass-bg-subtle);
+
+  border: 1px solid var(--glass-border-soft);
+
+  backdrop-filter: blur(16px);
+
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+
+/* =========================================
+   GLASS HOVER INTERACTION
+========================================= */
+
+.liquid-glass-hover:hover {
+  background: rgba(255, 255, 255, 0.12);
+
+  border-color: rgba(255, 255, 255, 0.30);
+
+  box-shadow: var(--glass-shadow-hover);
+
+  transform: translateY(-4px);
+}
+
+
+/* =========================================
+   LIQUID GLASS BUTTON
+========================================= */
+
+.liquid-glass-button {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.055)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+  transition: var(--glass-transition);
+}
+
+.liquid-glass-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 113, 227, 0.35),
+      rgba(255, 255, 255, 0.10)
+    );
+
+  border-color: rgba(255, 255, 255, 0.35);
+
+  box-shadow:
+    0 8px 28px rgba(0, 113, 227, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  transform: translateY(-2px);
+}
+
+.liquid-glass-button:active {
+  transform: scale(0.97);
+}
+
+
+/* =========================================
+   GLASS TEXTURE
+========================================= */
+
+.glass-reflection {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-reflection::before {
+  content: "";
+
+  position: absolute;
+
+  top: -100%;
+  left: -100%;
+
+  width: 70%;
+  height: 300%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent
+    );
+
+  transform: rotate(25deg);
+
+  transition:
+    left 0.8s ease;
+}
+
+.glass-reflection:hover::before {
+  left: 150%;
+}
+
+
+/* =========================================
+   BLUE AMBIENT GLOW
+========================================= */
+
+.glass-blue-glow {
+  box-shadow:
+    0 0 35px rgba(0, 113, 227, 0.12),
+    0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   GLASS DIVIDER
+========================================= */
+
+.glass-divider {
+  height: 1px;
+  width: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.22),
+      transparent
+    );
+}
+
+
+/* =========================================
+   BROWSER FALLBACK
+========================================= */
+
+@supports not (
+  (backdrop-filter: blur(1px)) or
+  (-webkit-backdrop-filter: blur(1px))
+) {
+  .liquid-glass,
+  .liquid-glass-strong,
+  .liquid-glass-subtle {
+    background: rgba(20, 25, 35, 0.94);
+  }
+}
+
+
+/* =========================================
+   MOBILE OPTIMIZATION
+========================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --glass-blur: 18px;
+    --glass-blur-heavy: 24px;
+    --glass-radius: 20px;
+  }
+
+  body {
+    background-attachment: scroll;
+  }
+
+  .liquid-glass-hover:hover {
+    transform: none;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass,
+  .liquid-glass-button,
+  .liquid-glass-hover,
+  .glass-reflection::before {
+    transition: none !important;
+  }
+
+  .liquid-glass-hover:hover,
+  .liquid-glass-button:hover {
+    transform: none;
+  }
+}
